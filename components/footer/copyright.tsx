@@ -1,4 +1,5 @@
 import { siteSettings } from "#/lib/site-settings";
+import Image from "next/image";
 import Link from "next/link";
 
 interface CopyrightProps {
@@ -11,8 +12,6 @@ interface CopyrightProps {
 		height: number;
 	}[];
 }
-
-import React from 'react'
 
 export default function Copyright({ payment }:CopyrightProps) {
 	return (
@@ -38,7 +37,7 @@ export default function Copyright({ payment }:CopyrightProps) {
 								key={`payment-list--key${item.id}`}
 							>
 								<a href={item.path ? item.path : "/#"} target="_blank">
-									<img
+									<Image
 										src={item.image}
 										alt={`${item.name}`}
 										height={item.height}

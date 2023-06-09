@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { forwardRef, ButtonHTMLAttributes } from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
@@ -10,16 +10,15 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	disabled?: boolean;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-	const {
-		className,
-		variant = "flat",
-		children,
-		active,
-		loading = false,
-		disabled = false,
-		...rest
-	} = props;
+export default function Button({
+	className,
+	variant = "flat",
+	children,
+	active,
+	loading = false,
+	disabled = false,
+	...rest
+}:ButtonProps) {
 
 	const rootClassName = clsx(
 		"text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none",
@@ -34,11 +33,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 		className
 	);
 
-	return (
+  return (
 		<button
 			aria-pressed={active}
 			data-variant={variant}
-			ref={ref}
+			// ref={ref}
 			className={rootClassName}
 			disabled={disabled}
 			{...rest}
@@ -67,7 +66,5 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
 				</svg>
 			)}
 		</button>
-	);
-});
-
-export default Button;
+  )
+}

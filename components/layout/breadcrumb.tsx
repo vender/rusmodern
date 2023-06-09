@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import { usePathname } from 'next/navigation'
+// import { usePathname } from 'next/navigation'
 // import ActiveLink from "#/components/ui/active-link";
 import Link from "next/link";
 // import useBreadcrumb, { convertBreadcrumbTitle } from "@utils/use-breadcrumb";
@@ -60,7 +60,7 @@ export const BreadcrumbItems = (props: any) => {
 };
 
 export default function breadcrumb({ separator = "/" }:{ separator?: string }) {
-	const pathname = usePathname();
+	// const pathname = usePathname();
 
 	const breadcrumbs:any = [
 		{

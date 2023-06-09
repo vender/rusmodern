@@ -160,11 +160,11 @@ export default function ProductSingleDetails({ product }:Product) {
 					</p>
 					<div className="flex items-center mt-5">
 						<div className="text-heading font-bold text-base md:text-xl lg:text-2xl 2xl:text-4xl pe-2 md:pe-0 lg:pe-2 2xl:pe-0">
-							{product.formatted_price}
+							{product.special ? product.formatted_special : product.formatted_price}
 						</div>
 						{product.special && (
 							<span className="line-through font-segoe text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl ps-2">
-								{product.formatted_special}
+								{product.formatted_price}
 							</span>
 						)}
 					</div>
