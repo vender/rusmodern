@@ -4,6 +4,7 @@ import Image from "next/image";
 // import usePrice from "@framework/product/use-price";
 import { Product } from "#/lib/types";
 import Prose from "../prose";
+import Link from "next/link";
 
 interface ProductProps {
 	product: Product;
@@ -99,18 +100,20 @@ export default function ProductCard({
 					contactClassName
 				)}
 			>
-				<h2
-					className={clsx("text-heading font-semibold truncate mb-1", {
-						"text-sm md:text-base": variant === "grid",
-						"md:mb-1.5 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg":
-							variant === "gridSlim",
-						"text-sm sm:text-base md:mb-1.5 pb-0": variant === "listSmall",
-						"text-sm sm:text-base md:text-sm lg:text-base xl:text-lg md:mb-1.5":
-							variant === "list",
-					})}
-				>
-					{product?.name}
-				</h2>
+				<Link href={`/product/${product.product_id}`}>
+					<h2
+						className={clsx("text-heading font-semibold truncate mb-1", {
+							"text-sm md:text-base": variant === "grid",
+							"md:mb-1.5 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg":
+								variant === "gridSlim",
+							"text-sm sm:text-base md:mb-1.5 pb-0": variant === "listSmall",
+							"text-sm sm:text-base md:text-sm lg:text-base xl:text-lg md:mb-1.5":
+								variant === "list",
+						})}
+					>
+						{product?.name}
+					</h2>
+				</Link>
 				{product?.description && (
 					<p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate" title={description}>
 						{description}
@@ -118,8 +121,8 @@ export default function ProductCard({
 				)}
 				<div
 					className={`text-heading font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${variant === "grid"
-							? "lg:text-lg lg:mt-2.5"
-							: "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
+						? "lg:text-lg lg:mt-2.5"
+						: "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
 						}`}
 				>
 					<span className="inline-block">{product.formatted_price}</span>

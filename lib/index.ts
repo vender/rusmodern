@@ -324,24 +324,87 @@ export async function getProduct(id: number) {
   const data = await fetchAPI(`
     {
       product(id: ${id}) {
-          product_id
+        product_id
+        name
+        description
+        meta_title
+        meta_description
+        meta_keyword
+        tag
+        model
+        sku
+        upc
+        ean
+        jan
+        isbn
+        mpn
+        location
+        quantity
+        stock_status
+        image
+        in_stock
+        price
+        special
+        formatted_price
+        formatted_special
+        reward
+        points
+        tax_class_id
+        date_available
+        weight
+        weight_class_id
+        length
+        width
+        height
+        length_class_id
+        subtract
+        rating
+        review_count
+        minimum
+        status
+        viewed
+        wishlist
+        categories {
+          category_id
           name
-          description
           meta_title
           meta_description
           meta_keyword
-          tag
-          model
-          quantity
-          stock_status
-          image
-          rating
-          formatted_price
-          options {
-            option_id
-            name
-          }
+          products_count
         }
+        attributes(language_id: 2) {
+          attribute_group_id
+          name
+          attribute {
+            attribute_id
+            name
+            text
+          } 
+        }
+        options {
+          product_option_id
+          option_id
+          name
+          type
+          value
+          required
+          in_stock
+        }
+        discounts {
+          product_discount_id
+          quantity
+          priority
+          price
+          date_start
+          date_end
+        }
+        images {
+          product_image_id
+          image
+          sort_order
+        }
+        layout_id
+      }
     }
   `);
   return data?.product

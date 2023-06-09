@@ -8,6 +8,7 @@ export type CartItem = {
 };
 
 export type Product = {
+  product_id: number;
   name: string;
   image: string;
   description: string;
