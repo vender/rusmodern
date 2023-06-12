@@ -11,13 +11,14 @@ interface Props {
 	onClick: any;
 }
 
-export const ProductAttributes: React.FC<Props> = ({
+
+export default function ProductAttributes({
 	className = "mb-4",
 	title,
 	attributes,
 	active,
 	onClick,
-}) => {
+}: Props) {
 	return (
 		<div className={className}>
 			<h3 className="text-base md:text-lg text-heading font-semibold mb-2.5 capitalize">
@@ -47,5 +48,5 @@ export const ProductAttributes: React.FC<Props> = ({
 				))}
 			</ul>
 		</div>
-	);
-};
+	)
+}
