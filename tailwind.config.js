@@ -8,7 +8,7 @@ module.exports = {
 		'./components/**/*.{js,ts,jsx,tsx,mdx}',
 		'./app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
-	darkMode: false,
+	darkMode: 'media',
 	theme: {
 		extend: {
 			colors: {
@@ -103,7 +103,7 @@ module.exports = {
 			cookies: "0 -2px 3px rgba(0, 0, 0, 0.04)",
 		},
 		fontFamily: {
-			body: ["'Open Sans', sans-serif"],
+			body: ['var(--font-inter)'],
 			satisfy: ["'Satisfy', cursive"],
 			segoe: ["'Segoe UI', sans-serif"],
 		},

@@ -4,7 +4,11 @@ import Navbar from '#/components/navbar';
 import Footer from '#/components/footer/footer';
 import { getCategories, getInformations } from '#/lib'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin', 'cyrillic-ext'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
 export const metadata = {
   title: "Open React",
@@ -19,7 +23,7 @@ export default async function RootLayout({
   const infoPages = await getInformations();
 
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${inter.variable}`}>
       <head />
       <body>
         <div className='flex flex-col min-h-screen'>
