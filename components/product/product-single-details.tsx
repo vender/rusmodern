@@ -1,5 +1,4 @@
-import Button from "#/components/ui/button";
-// import Counter from "@components/common/counter";
+import Counter from "#/components/product/counter";
 // import { useRouter } from "next/router";
 // import { getVariations } from "@framework/utils/get-variations";
 // import usePrice from "@framework/product/use-price";
@@ -28,7 +27,7 @@ interface Product {
 
 function productAttribs(product:any){
 	const attrib = product.attributes.map((item:any)=>{
-		console.log(item);
+		// console.log(item);
 	});
 
 	// return product.attributes;
@@ -48,15 +47,13 @@ export default function ProductSingleDetails({ product }: Product) {
 		}
 	]
 
-	const isSelected = false;
-
 	return (
 		<div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start">
 
 			<ProductGallery product={product} />
 
 			<div className="col-span-4 pt-8 lg:pt-0">
-				<div className="pb-7 mb-7 border-b border-gray-300">
+				<div className="pb-3 border-b border-gray-300">
 					<h2 className="text-heading text-lg md:text-xl lg:text-2xl 2xl:text-3xl font-bold hover:text-black mb-3.5">
 						{product?.name}
 					</h2>
@@ -126,24 +123,17 @@ export default function ProductSingleDetails({ product }: Product) {
 					})}
 				</div> */}
 
-				<div className="flex items-center space-s-4 md:pe-32 lg:pe-12 2xl:pe-32 3xl:pe-48 border-b border-gray-300 py-8">
-					{/* <Counter
-						quantity={quantity}
-						onIncrement={() => setQuantity((prev) => prev + 1)}
-						onDecrement={() =>
-							setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-						}
-						disableDecrement={quantity === 1}
-					/> */}
-					<Button
-						// onClick={addToCart}
-						variant="slim"
-						className={`w-full md:w-6/12 xl:w-full ${!isSelected && "bg-gray-400 hover:bg-gray-400"}`}
-					// disabled={!isSelected}
-					// loading={addToCartLoader}
-					>
-						<span className="py-2 3xl:px-8">В корзину</span>
-					</Button>
+				<div className="flex items-center gap-x-4 ltr:md:pr-32 rtl:md:pl-32 ltr:lg:pr-12 rtl:lg:pl-12 ltr:2xl:pr-32 rtl:2xl:pl-32 ltr:3xl:pr-48 rtl:3xl:pl-48 py-8">
+					<Counter
+						item={product}
+						// quantity={quantity}
+						// onIncrement={() => setQuantity((prev) => prev + 1)}
+						// onDecrement={() =>
+						// 	setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
+						// }
+						// disableDecrement={quantity === 1}
+					/>
+					
 				</div>
 
 				{/* <p className="text-body text-sm lg:text-base leading-6 lg:leading-8">

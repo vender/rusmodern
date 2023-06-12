@@ -1,3 +1,4 @@
+"use client"
 import MinusIcon from "#/components/icons/minus-icon";
 import PlusIcon from "#/components/icons/plus-icon";
 import clsx from "clsx";
