@@ -1,11 +1,6 @@
 import Counter from "#/components/product/counter";
 // import { useRouter } from "next/router";
-// import { getVariations } from "@framework/utils/get-variations";
-// import usePrice from "@framework/product/use-price";
-// import { generateCartItem } from "@utils/generate-cart-item";
 // import ProductAttributes from "#/components/product/product-attributes";
-// import isEmpty from "lodash/isEmpty";
-// import { toast } from "react-toastify";
 import ProductMetaReview from "#/components/product/product-meta-review";
 import Link from "next/link";
 import ProductGallery from "./productGallery";
@@ -126,19 +121,8 @@ export default function ProductSingleDetails({ product }: Product) {
 				<div className="flex items-center gap-x-4 ltr:md:pr-32 rtl:md:pl-32 ltr:lg:pr-12 rtl:lg:pl-12 ltr:2xl:pr-32 rtl:2xl:pl-32 ltr:3xl:pr-48 rtl:3xl:pl-48 py-8">
 					<Counter
 						item={product}
-						// quantity={quantity}
-						// onIncrement={() => setQuantity((prev) => prev + 1)}
-						// onDecrement={() =>
-						// 	setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-						// }
-						// disableDecrement={quantity === 1}
 					/>
-					
 				</div>
-
-				{/* <p className="text-body text-sm lg:text-base leading-6 lg:leading-8">
-					{product?.description}
-				</p> */}
 
 				<ProductMetaReview data={productData} />
 			</div>

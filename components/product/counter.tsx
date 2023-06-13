@@ -3,6 +3,7 @@ import MinusIcon from "#/components/icons/minus-icon";
 import PlusIcon from "#/components/icons/plus-icon";
 import Button from "#/components/ui/button";
 import clsx from "clsx";
+import toast from 'react-hot-toast';
 import LoadingDots from '../loading-dots';
 import { useRouter } from 'next/navigation';
 import { startTransition, useState } from 'react';
@@ -38,6 +39,10 @@ export default function Counter({
 
 		startTransition(() => {
 			router.refresh();
+			toast.success("Добавлен в корзину", {
+				duration: 4000,
+				position:"top-center",
+			});
 			setEditing(false);
 		});
 	}

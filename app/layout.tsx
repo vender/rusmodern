@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Navbar from '#/components/navbar';
 import Footer from '#/components/footer/footer';
+import { Toaster } from 'react-hot-toast';
 import { getCategories, getInformations } from '#/lib'
 
 const inter = Inter({
@@ -31,6 +32,7 @@ export default async function RootLayout({
           <main className='relative flex-grow'>{children}</main>
           <Footer />
         </div>
+        <Toaster />
       </body>
     </html>
   )
