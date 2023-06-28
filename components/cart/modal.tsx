@@ -17,10 +17,11 @@ export default function CartModal({
   onClose: () => void;
   cart: any;
 }) {
-
+  // console.log(isOpen);
+  
   return (
     <AnimatePresence initial={false}>
-      {isOpen && (
+      {/* {isOpen && ( */}
         <Dialog
           as={motion.div}
           initial="closed"
@@ -121,7 +122,7 @@ export default function CartModal({
             </Dialog.Panel>
           </div>
         </Dialog>
-      )}
+       {/* )} */}
     </AnimatePresence>
   );
 }

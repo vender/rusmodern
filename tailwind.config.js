@@ -113,6 +113,7 @@ module.exports = {
 	},
 	plugins: [
 		require('@tailwindcss/typography'),
+		require('tailwindcss-animated'),
 		plugin(({ matchUtilities, theme }) => {
 			matchUtilities(
 				{

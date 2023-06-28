@@ -77,7 +77,6 @@ export default function ProductCard({
 					width={imgWidth}
 					height={imgHeight}
 					loading={imgLoading}
-					quality={100}
 					alt={product?.name || "Product Image"}
 					className={clsx("bg-gray-300 object-cover rounded-s-md", {
 						"w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":

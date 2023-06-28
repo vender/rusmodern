@@ -1,6 +1,6 @@
 import React from 'react'
 import { getInformationPage } from "#/lib"
-import Prose from '#/components/prose';
+// import Prose from '#/components/prose';
 
 async function page({params} : {params:any}) {
   const pageInfo = await getInformationPage(params.id);

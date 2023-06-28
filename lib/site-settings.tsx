@@ -164,12 +164,12 @@ export const siteSettings = {
 			slug: "women's-collection",
 			image: {
 				mobile: {
-					url: "/assets/images/banner/small/banner-mobile-2.jpg",
+					url: "/assets/images/banner/small/banner-mobile.jpg",
 					width: 450,
 					height: 150,
 				},
 				desktop: {
-					url: "/assets/images/banner/small/banner-2.jpg",
+					url: "/assets/images/banner/small/banner.jpg",
 					width: 580,
 					height: 360,
 				},

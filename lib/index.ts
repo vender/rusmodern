@@ -241,6 +241,15 @@ export async function getProducts(parent: number) {
   const data = await fetchAPI(`
   {
     products(filter_category_id: ${parent} start: 0) {
+      attributes {
+        attribute_group_id
+        name
+        attribute {
+          attribute_id
+          name
+          text
+        }
+      }
       product_id
       name
       description
