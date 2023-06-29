@@ -1,4 +1,4 @@
-import { CheckBox } from "#/components/ui/checkbox";
+import CheckBox from "#/components/ui/checkbox";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import React from "react";
 
@@ -48,7 +48,7 @@ const items = [
 export const PriceFilter = () => {
 	const router = useRouter();
 	const pathname = usePathname();
-	const query = useSearchParams();
+	const query:any = useSearchParams();
 	const selectedPrices = query?.price ? (query.price as string).split(",") : [];
 	const [formState, setFormState] = React.useState<string[]>(selectedPrices);
 	React.useEffect(() => {

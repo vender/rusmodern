@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useCollapse } from 'react-collapsed'
-import { CheckBox } from "#/components/ui/checkbox";
+import CheckBox from "#/components/ui/checkbox";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 

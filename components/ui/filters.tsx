@@ -1,7 +1,7 @@
 "use client"
 import FilteredItem from "#/components/ui/filtered-item";
 // import { ColorFilter } from "#/components/ui/color-filter";
-import { PriceFilter } from "#/components/ui/price-filter";
+// import { PriceFilter } from "#/components/ui/price-filter";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import AttribFilter from "./attrib-filter";
 
