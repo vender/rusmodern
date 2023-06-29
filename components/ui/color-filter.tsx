@@ -1,5 +1,5 @@
-import { CheckBox } from "#/components/ui/checkbox";
-import { useRouter } from "next/router";
+import CheckBox from "#/components/ui/checkbox";
+import { useSearchParams } from 'next/navigation'
 import React from "react";
 
 const colorFilterItems = [
@@ -47,13 +47,14 @@ const colorFilterItems = [
 	},
 ];
 export const ColorFilter = () => {
-	const router = useRouter();
-	const { pathname, query } = router;
-	const selectedColors = query?.color ? (query.color as string).split(",") : [];
+	const searchParams = useSearchParams();
+	// const { pathname, query } = router;
+	const color = searchParams.get('color')
+	const selectedColors = color ? (color as string).split(",") : [];
 	const [formState, setFormState] = React.useState<string[]>(selectedColors);
 	React.useEffect(() => {
 		setFormState(selectedColors);
-	}, [query?.color]);
+	}, [color]);
 	function handleItemClick(e: React.FormEvent<HTMLInputElement>): void {
 		const { value } = e.currentTarget;
 		let currentFormState = formState.includes(value)
