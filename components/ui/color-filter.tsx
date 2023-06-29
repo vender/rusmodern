@@ -56,25 +56,25 @@ export const ColorFilter = () => {
 		setFormState(selectedColors);
 	}, [color]);
 	function handleItemClick(e: React.FormEvent<HTMLInputElement>): void {
-		const { value } = e.currentTarget;
-		let currentFormState = formState.includes(value)
-			? formState.filter((i) => i !== value)
-			: [...formState, value];
-		// setFormState(currentFormState);
-		const { color, ...restQuery } = query;
-		router.push(
-			{
-				pathname,
-				query: {
-					...restQuery,
-					...(!!currentFormState.length
-						? { color: currentFormState.join(",") }
-						: {}),
-				},
-			},
-			undefined,
-			{ scroll: false }
-		);
+		// const { value } = e.currentTarget;
+		// let currentFormState = formState.includes(value)
+		// 	? formState.filter((i) => i !== value)
+		// 	: [...formState, value];
+		// // setFormState(currentFormState);
+		// const { color, ...restQuery } = query;
+		// router.push(
+		// 	{
+		// 		pathname,
+		// 		query: {
+		// 			...restQuery,
+		// 			...(!!currentFormState.length
+		// 				? { color: currentFormState.join(",") }
+		// 				: {}),
+		// 		},
+		// 	},
+		// 	undefined,
+		// 	{ scroll: false }
+		// );
 	}
 	const items = colorFilterItems;
 
