@@ -143,16 +143,16 @@ export const siteSettings = {
 	promotionBannerTwo: [
 		{
 			id: 1,
-			title: "Men's Collection",
-			slug: "men's-collection",
+			title: "Распродажа комфорта",
+			slug: "comfort-sale",
 			image: {
 				mobile: {
-					url: "/assets/images/banner/small/banner-mobile-1.jpg",
+					url: "/assets/images/banner/small/mobile_air_01.jpg",
 					width: 450,
 					height: 150,
 				},
 				desktop: {
-					url: "/assets/images/banner/small/banner-1.jpg",
+					url: "/assets/images/banner/small/air_02.jpg",
 					width: 580,
 					height: 360,
 				},
@@ -160,16 +160,16 @@ export const siteSettings = {
 		},
 		{
 			id: 2,
-			title: "Women's Collection",
-			slug: "women's-collection",
+			title: "Сезонные скидки",
+			slug: "seasonal-discounts",
 			image: {
 				mobile: {
-					url: "/assets/images/banner/small/banner-mobile.jpg",
+					url: "/assets/images/banner/small/mobile_oven_01.jpg",
 					width: 450,
 					height: 150,
 				},
 				desktop: {
-					url: "/assets/images/banner/small/banner.jpg",
+					url: "/assets/images/banner/small/oven_02.jpg",
 					width: 580,
 					height: 360,
 				},
@@ -177,33 +177,16 @@ export const siteSettings = {
 		},
 		{
 			id: 3,
-			title: "Kid's Collection",
-			slug: "kid's-collection",
+			title: "Лето-распродажа",
+			slug: "summer-sale",
 			image: {
 				mobile: {
-					url: "/assets/images/banner/small/banner-mobile-3.jpg",
+					url: "/assets/images/banner/small/mobile_stove_01.jpg",
 					width: 450,
 					height: 150,
 				},
 				desktop: {
-					url: "/assets/images/banner/small/banner-3.jpg",
-					width: 580,
-					height: 360,
-				},
-			},
-		},
-		{
-			id: 4,
-			title: "Men's Collection",
-			slug: "men's-collection",
-			image: {
-				mobile: {
-					url: "/assets/images/banner/small/banner-mobile-1.jpg",
-					width: 450,
-					height: 150,
-				},
-				desktop: {
-					url: "/assets/images/banner/small/banner-1.jpg",
+					url: "/assets/images/banner/small/stove_01.jpg",
 					width: 580,
 					height: 360,
 				},
