@@ -30,7 +30,7 @@ export default async function Navbar({categories, infoPages}:any) {
   infoPages = infoPages.map((infoPage:any) =>{
     return infoPage.bottom && {
       id: infoPage.information_id,
-      path: `info/${infoPage.information_id}`,
+      path: `/info/${infoPage.information_id}`,
       label: infoPage.title,
     }
   }).filter((item:any) => item);

@@ -1,6 +1,5 @@
 import Container from "#/components/ui/container";
 import Breadcrumb from "#/components/layout/breadcrumb";
-// import { ShopFilters } from "#/components/ui/filters";
 import ProductGrid from "#/components/product/product-grid";
 import { getProducts } from '#/lib'
 import ShopFilters from "#/components/ui/filters";
@@ -13,17 +12,17 @@ const uniqArray = (array: any) => {
 
 export default async function Category({ params }: any) {
 	const products = await getProducts(params.category_id);
-
+	
 	let attribs: any = [];
 	let attribute_groups: any = [];
 
-	products.map((item: any, idx: number, arr: any[]) => {
+	products && products.map((item: any, idx: number, arr: any[]) => {
 		item.attributes.map((i: any) => {
 			i.attribute.map((i: any) => attribute_groups.push([i.attribute_id, i.name]));
 		});
 	});
 
-	products.map((item: any, idx: number, arr: any[]) => {
+	products && products.map((item: any, idx: number, arr: any[]) => {
 		item.attributes.map((i: any) => attribs.push(...i.attribute));
 	});
 
@@ -35,7 +34,7 @@ export default async function Category({ params }: any) {
 						<div className="pb-7">
 							<Breadcrumb />
 						</div>
-						<ShopFilters products={products} attribute_groups={uniqArray(attribute_groups)} attribs={uniqArray(attribs)} />
+						{/* <ShopFilters products={products} attribute_groups={uniqArray(attribute_groups)} attribs={uniqArray(attribs)} /> */}
 					</div>
 
 					<div className="w-full lg:-ms-9">

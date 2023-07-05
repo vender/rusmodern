@@ -42,6 +42,7 @@ export default function ProductCard({
 	// }
 
 	return (
+		<Link href={`/product/${product.product_id}`}>
 		<div
 			className={clsx(
 				"group box-border overflow-hidden flex rounded-md cursor-pointer",
@@ -99,7 +100,7 @@ export default function ProductCard({
 					contactClassName
 				)}
 			>
-				<Link href={`/product/${product.product_id}`}>
+				
 					<h2
 						className={clsx("text-heading font-semibold truncate mb-1", {
 							"text-sm md:text-base": variant === "grid",
@@ -112,7 +113,6 @@ export default function ProductCard({
 					>
 						{product?.name}
 					</h2>
-				</Link>
 				{product?.description && (
 					<p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate" title={description}>
 						{description}
@@ -133,5 +133,6 @@ export default function ProductCard({
 				</div>
 			</div>
 		</div>
+		</Link>
 	)
 }

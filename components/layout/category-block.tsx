@@ -79,7 +79,7 @@ export default function CategoryBlock({
 							<SwiperSlide key={`category--key-${category.category_id}`}>
 								<Card
 									item={category}
-									href={`/${category.category_id}`}
+									href={`/category/${category.category_id}`}
 									variant={type}
 									effectActive={true}
 									size={type === "rounded" ? "medium" : "small"}
