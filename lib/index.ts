@@ -209,10 +209,10 @@ export async function updateCart(id: number) {
   return data?.addItemToCart
 }
 
-export async function getCategories(parent: number) {
+export async function getCategories(parent: number = 0) {
   const data = await fetchAPI(`
   {
-    categories(parent: 0) {
+    categories(parent: ${parent}) {
       category_id
       categories {
         category_id
@@ -237,10 +237,34 @@ export async function getCategories(parent: number) {
   return data?.categories
 }
 
+export async function getCategory(id: number = 0) {
+  const data = await fetchAPI(`
+  {
+    category(id: ${id}) {
+      category_id
+      name
+      image
+      top
+      column
+      status
+      description
+      date_added
+      date_modified
+      meta_title
+      meta_description
+      meta_keyword
+      layout_id
+      products_count
+    }
+  }
+  `, 'no-store');
+  return data?.category
+}
+
 export async function getProducts(parent: number) {
   const data = await fetchAPI(`
   {
-    products(filter_category_id: ${parent} start: 0) {
+    products(filter_category_id: ${parent} start: 0 limit: 300) {
       attributes {
         attribute_group_id
         name

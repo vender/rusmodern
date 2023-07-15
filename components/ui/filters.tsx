@@ -1,7 +1,5 @@
 "use client"
 import FilteredItem from "#/components/ui/filtered-item";
-// import { ColorFilter } from "#/components/ui/color-filter";
-// import { PriceFilter } from "#/components/ui/price-filter";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import AttribFilter from "./attrib-filter";
 
@@ -10,14 +8,12 @@ export default function ShopFilters({ products, attribute_groups, attribs }: any
 	const pathname = usePathname();
 	const searchParams: any = useSearchParams();
 	let allParams: any = [];
-
+	
 	searchParams.forEach((value: any, key: any) => {
 		value.split(',').filter((e: any) => e).map((i: any) => {
 			allParams.push([i, key]);
 		})
 	});
-
-	// console.log(attribute_groups);
 
 	return (
 		<div className="pt-1">
@@ -50,9 +46,7 @@ export default function ShopFilters({ products, attribute_groups, attribs }: any
 				</div>
 			</div>
 
-			{/* <PriceFilter /> */}
 			<AttribFilter attribute_groups={attribute_groups} items={attribs} />
-			{/* <ColorFilter /> */}
 		</div>
 	)
 }

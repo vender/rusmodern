@@ -80,7 +80,7 @@ export default function ProductCard({
 					loading={imgLoading}
 					alt={product?.name || "Product Image"}
 					className={clsx("bg-gray-300 object-cover rounded-s-md", {
-						"w-full rounded-md transition duration-200 ease-in group-hover:rounded-b-none":
+						"w-full aspect-square rounded-md transition duration-200 ease-in group-hover:rounded-b-none":
 							variant === "grid",
 						"rounded-md transition duration-150 ease-linear transform group-hover:scale-105":
 							variant === "gridSlim",
