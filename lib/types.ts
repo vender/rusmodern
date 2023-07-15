@@ -13,6 +13,7 @@ export type Product = {
   image: string;
   description: string;
   discount: string;
+  special: string;
   formatted_price: string;
   formatted_special: string;
 };

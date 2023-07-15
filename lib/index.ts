@@ -340,6 +340,7 @@ export async function getlatestProducts() {
       discounts {
         price
       }
+      special
       formatted_special
       description
       model

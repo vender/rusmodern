@@ -22,7 +22,7 @@ export default function ProductCard({
 	className = "",
 	contactClassName = "",
 	imageContentClassName = "",
-	variant = "list",
+	variant = "grid",
 	imgWidth = 340,
 	imgHeight = 440,
 	imgLoading,
@@ -39,7 +39,7 @@ export default function ProductCard({
 	// 	setModalData({ data: product });
 	// 	setModalView("PRODUCT_VIEW");
 	// 	return openModal();
-	// }
+	// }	
 
 	return (
 		<Link href={`/product/${product.product_id}`}>
@@ -119,15 +119,12 @@ export default function ProductCard({
 					</p>
 				)}
 				<div
-					className={`text-heading font-semibold text-sm sm:text-base mt-1.5 space-s-2 ${variant === "grid"
-						? "lg:text-lg lg:mt-2.5"
-						: "sm:text-xl md:text-base lg:text-xl md:mt-2.5 2xl:mt-3"
-						}`}
+					className='font-semibold text-sm sm:text-base mt-1.5 flex flex-wrap gap-x-2 lg:text-lg lg:mt-2.5 text-heading'
 				>
-					<span className="inline-block">{product.formatted_price}</span>
-					{product.discount && (
+					<span className="inline-block">{product.special ? product.formatted_special : product.formatted_price}</span>
+					{product.special && (
 						<del className="sm:text-base font-normal text-gray-800">
-							{product.formatted_special}
+							{product.formatted_price}
 						</del>
 					)}
 				</div>

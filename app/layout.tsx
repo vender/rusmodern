@@ -11,6 +11,8 @@ const inter = Inter({
   variable: '--font-inter',
 })
 
+export const revalidate = 60;
+
 export const metadata = {
   title: "Open React",
 };
