@@ -3,7 +3,7 @@ import { cookies, headers } from "next/headers";
 
 const { NEXT_PUBLIC_OPENCART_DOMAIN_URL, NEXT_PUBLIC_OPENCART_API_TOKEN } = process.env;
 
-async function fetchAPI(query = '', cache: RequestCache = 'no-store', { variables }: Record<string, any> = {}, headers?: object) {
+async function fetchAPI(query = '', cache: RequestCache = 'default', { variables }: Record<string, any> = {}, headers?: object) {
   let sesHeaders;
   const xsessionid = cookies().get("x-session-id")?.value;
   if (xsessionid) {
@@ -23,7 +23,7 @@ async function fetchAPI(query = '', cache: RequestCache = 'no-store', { variable
         variables,
       }, null, 2),
       cache,
-      // next: { revalidate: 30 }
+      // next: { revalidate: 60 }
     })
 
     const json = await res.json();
@@ -135,7 +135,7 @@ export async function addItemToCart(product_id: number, quantity: number) {
         }
       }
     }
-  `);
+  `, 'no-store',);
 
   return data?.addItemToCart
 }
@@ -145,7 +145,7 @@ export async function removeFromCart(cart_id: any) {
     mutation {
       deleteCartItem(cart_id: ${cart_id})
     }
-  `);
+    `, 'no-store',);
 
   return data?.addItemToCart
 }
@@ -155,7 +155,7 @@ export async function updateCartItem(cart_id: any, quantity: number) {
     mutation {
       updateCartItem(cart_id: ${cart_id}, quantity: ${quantity})
     }  
-  `);
+    `, 'no-store',);
 
   return data?.addItemToCart
 }
@@ -204,7 +204,7 @@ export async function updateCart(id: number) {
         }
       }
     }
-  `);
+  `, 'no-store',);
 
   return data?.addItemToCart
 }
@@ -233,7 +233,7 @@ export async function getCategories(parent: number = 0) {
       products_count
     }
   }
-  `, 'no-store');
+  `);
   return data?.categories
 }
 
@@ -257,7 +257,7 @@ export async function getCategory(id: number = 0) {
       products_count
     }
   }
-  `, 'no-store');
+  `);
   return data?.category
 }
 
@@ -306,7 +306,7 @@ export async function getProducts(parent: number) {
       }
     }
   }
-  `, 'no-store');
+  `);
   return data?.products
 }
 
@@ -325,7 +325,7 @@ export async function getBestsellerProducts() {
         image
       }
     }
-  `, 'no-store');
+  `);
   return data?.latestProducts
 }
 
@@ -349,7 +349,7 @@ export async function getlatestProducts() {
       image
     }
   }
-  `, 'no-store');
+  `);
   return data?.latestProducts
 }
 
@@ -439,7 +439,7 @@ export async function getProduct(id: number) {
         layout_id
       }
     }
-  `);
+  `, 'no-store',);
   return data?.product
 }
 
@@ -453,7 +453,7 @@ export async function getInformations() {
       title
     }
   }
-  `, 'no-store');
+  `);
   return data?.informations
 }
 
@@ -472,7 +472,7 @@ export async function getInformationPage(id: number) {
         meta_keyword
       }
     }
-  `, 'no-store');
+  `);
   return data?.information
 }
 
@@ -481,7 +481,7 @@ export async function LogIn(email: string, password: string) {
     mutation {
       login(email: "${email}", password: "${password}")
     }
-  `);
+  `, 'no-store',);
 
   return data?.login
 }
@@ -515,7 +515,7 @@ export async function loggedIn() {
         date_added
       }
     }
-  `);
+  `, 'no-store',);
   return data?.loggedIn
 }
 

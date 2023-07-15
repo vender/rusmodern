@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useCollapse } from 'react-collapsed'
 import CheckBox from "#/components/ui/checkbox";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
@@ -15,7 +15,11 @@ export default function FilterCollapse({ attrib_group, items }: any) {
 	const pathname = usePathname();
 	const searchParams:any = useSearchParams();
 	const params = new URLSearchParams(searchParams);
-	const selectedAttribs = params?.getAll(attrib_group[1]).length ? params?.getAll(attrib_group[1]).toString().split(",") : [];
+	// const selectedAttribs = params?.getAll(attrib_group[1]).length ? params?.getAll(attrib_group[1]).toString().split(",") : [];
+	const selectedAttribs = useMemo(
+		() => params?.getAll(attrib_group[1]).length ? params?.getAll(attrib_group[1]).toString().split(",") : [],
+		[attrib_group, params]
+	  );
 	const [formState, setFormState] = useState<string[]>(selectedAttribs);
 
 	useEffect(() => {

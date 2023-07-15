@@ -71,7 +71,7 @@ export default function CartItem({ item }: { item: any }) {
 						variant="dark"
 					/>
 					<span className="font-semibold text-sm md:text-base text-heading leading-5">
-						{item.total}
+						{item.total} ₽
 					</span>
 				</div>
 			</div>

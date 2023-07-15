@@ -83,7 +83,7 @@ export default function Cartdrawer({
                             </span>
                             <span className="ms-auto flex-shrink-0 -mt-0.5 py-0.5">
                                 <span className="border-s border-white pe-5 py-0.5" />
-                                {cart?.total}
+                                {cart?.total} ₽
                             </span>
 
                         </Link>) : null

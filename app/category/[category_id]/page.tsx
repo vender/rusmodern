@@ -21,7 +21,7 @@ export async function generateMetadata(
 		description: category.description,
 	  },
 	}
-  }
+}
 
 const uniqArray = (array: any) => {
 	return array.map(JSON.stringify)
