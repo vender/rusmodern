@@ -20,7 +20,6 @@ function getImage(deviceWidth: number, imgObj: any) {
 export default function BannerCard({
 	banner,
 	className,
-	variant = "rounded",
 	effectActive = false,
 	classNameInner,
 	href,
@@ -44,9 +43,7 @@ export default function BannerCard({
 					height={selectedImage.height}
 					alt={title}
 					quality={100}
-					className={clsx("bg-gray-300 object-cover w-full", {
-						"rounded-md": variant === "rounded",
-					})}
+					className="bg-gray-300 w-full rounded"
 				/>
 				{effectActive && (
 					<div className="absolute top-0 -start-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />

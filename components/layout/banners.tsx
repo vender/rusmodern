@@ -26,7 +26,7 @@ export default function Banners({ banners }: { banners: any }) {
                         >
                             <Image
                                 src={`${process.env.NEXT_PUBLIC_OPENCART_DOMAIN_URL}/image/${banner.image}`}
-                                className="bg-gray-300 object-cover w-full rounded"
+                                className="bg-gray-300 w-full rounded"
                                 width={1800}
                                 height={800}
                                 alt=''

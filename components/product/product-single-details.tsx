@@ -66,7 +66,7 @@ export default function ProductSingleDetails({ product }: Product) {
 									Категория:
 								</span>
 								<Link
-									href={`/${product?.categories[0].category_id}`}
+									href={`/category/${product?.categories[0].category_id}`}
 									className="transition hover:underline hover:text-heading"
 								>
 									{product?.categories[0]?.name}

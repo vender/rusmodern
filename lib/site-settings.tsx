@@ -144,7 +144,7 @@ export const siteSettings = {
 		{
 			id: 1,
 			title: "Распродажа комфорта",
-			slug: "comfort-sale",
+			slug: "#comfort-sale",
 			image: {
 				mobile: {
 					url: "/assets/images/banner/small/mobile_air_01.jpg",
@@ -161,7 +161,7 @@ export const siteSettings = {
 		{
 			id: 2,
 			title: "Сезонные скидки",
-			slug: "seasonal-discounts",
+			slug: "#seasonal-discounts",
 			image: {
 				mobile: {
 					url: "/assets/images/banner/small/mobile_oven_01.jpg",
@@ -178,7 +178,7 @@ export const siteSettings = {
 		{
 			id: 3,
 			title: "Лето-распродажа",
-			slug: "summer-sale",
+			slug: "#summer-sale",
 			image: {
 				mobile: {
 					url: "/assets/images/banner/small/mobile_stove_01.jpg",
