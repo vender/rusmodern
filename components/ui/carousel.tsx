@@ -16,6 +16,7 @@ type CarouselPropsType = {
 	breakpoints?: {} | any;
 	pagination?: {} | any;
 	navigation?: {} | any;
+	autoHeight?: boolean;
 	autoplay?: {} | any;
 };
 
@@ -28,6 +29,7 @@ export default function Carousel({
 	pagination,
 	breakpoints,
 	navigation,
+	autoHeight = false,
 	autoplay = {
 		delay: 5000,
 	}
@@ -41,6 +43,7 @@ export default function Carousel({
 			<Swiper
 				loop={true}
 				autoplay={autoplay}
+				autoHeight={autoHeight}
 				breakpoints={breakpoints}
 				modules={[Pagination, Navigation, Autoplay]}
 				pagination={pagination}
