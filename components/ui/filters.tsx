@@ -3,7 +3,7 @@ import FilteredItem from "#/components/ui/filtered-item";
 import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import AttribFilter from "./attrib-filter";
 
-export default function ShopFilters({ products, attribute_groups, attribs }: any) {
+export default function ShopFilters({ attribute_groups, attribs }: any) {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams: any = useSearchParams();
