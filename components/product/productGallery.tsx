@@ -1,5 +1,5 @@
 "use client";
-import { useWindowSize } from "react-use";
+// import { useWindowSize } from "react-use";
 import Carousel from "#/components/ui/carousel";
 import { SwiperSlide } from "swiper/react";
 import Image from "next/image";
@@ -11,7 +11,7 @@ const productGalleryCarouselResponsive = {
 };
 
 export default function ProductGallery({ product }: any) {
-  const { width } = useWindowSize();
+  // const { width } = useWindowSize();
   const { images, name } = product;
 
   return (

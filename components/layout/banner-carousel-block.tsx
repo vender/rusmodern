@@ -2,7 +2,6 @@
 import BannerCard from "#/components/layout/banner-card";
 import { SwiperSlide } from 'swiper/react';
 import Carousel from "#/components/ui/carousel";
-import { siteSettings } from "#/lib/site-settings";
 
 const breakpoints = {
 	"1025": {
@@ -21,7 +20,9 @@ const breakpoints = {
 
 export default function BannerCarouselBlock({
 	className = "mb-12 md:mb-12 lg:mb-14 pb-0.5 xl:pb-1.5",
-}) {
+	banners
+}:any) {
+
 	return (
 		<div className={className}>
 			<div
@@ -34,11 +35,11 @@ export default function BannerCarouselBlock({
 						pagination={false}
 						navigation={true}
 					>
-						{siteSettings.promotionBannerTwo?.map((banner: any) => (
-							<SwiperSlide key={`promotion-banner-key-${banner?.id}`}>
+						{banners?.map((banner: any) => (
+							<SwiperSlide key={`banner-key-${banner?.banner_image_id}`}>
 								<BannerCard
 									banner={banner}
-									href={`/${banner.slug}`}
+									href={`/${banner.link}`}
 									effectActive={true}
 								/>
 							</SwiperSlide>

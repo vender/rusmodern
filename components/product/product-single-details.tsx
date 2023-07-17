@@ -4,11 +4,13 @@ import Counter from "#/components/product/counter";
 import ProductMetaReview from "#/components/product/product-meta-review";
 import Link from "next/link";
 import ProductGallery from "./productGallery";
+import Image from "next/image";
 
 interface Product {
 	product: {
 		product_id: number;
 		name: string;
+		image?: string;
 		description: string;
 		formatted_price: string;
 		special: number;
@@ -17,11 +19,12 @@ interface Product {
 		categories: any[];
 		tag: string;
 		attributes: any;
+		images?: any;
 	}
 }
 
 function productAttribs(product:any){
-	const attrib = product.attributes.map((item:any)=>{
+	const attrib = product.attributes?.map((item:any)=>{
 		// console.log(item);
 	});
 
@@ -45,7 +48,22 @@ export default function ProductSingleDetails({ product }: Product) {
 	return (
 		<div className="block lg:grid grid-cols-9 gap-x-10 xl:gap-x-14 pt-7 pb-10 lg:pb-14 2xl:pb-20 items-start">
 
-			<ProductGallery product={product} />
+			{product.images.length ? 
+				<ProductGallery product={product} /> :
+				<div className="col-span-5 grid grid-cols-1 gap-2.5">
+					<Image
+						src={
+							product?.image
+							? `${process.env.NEXT_PUBLIC_OPENCART_DOMAIN_URL}/image/${product?.image}`
+							: "/assets/placeholder/products/product-gallery.svg"
+						}
+						width={400}
+						height={400}
+						alt={product.name}
+						className="object-cover w-full"
+					/>
+				</div>
+			}
 
 			<div className="col-span-4 pt-8 lg:pt-0">
 				<div className="pb-3 border-b border-gray-300">

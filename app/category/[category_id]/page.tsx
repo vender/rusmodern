@@ -4,6 +4,7 @@ import ProductGrid from "#/components/product/product-grid";
 import { getCategory, getProducts } from "#/lib";
 import ShopFilters from "#/components/ui/filters";
 import SearchTopBar from "#/components/ui/top-bar";
+import clsx from "clsx";
 
 type Props = {
   params: { id: string; category_id: number };
@@ -57,7 +58,7 @@ export default async function Category({ params, searchParams }: any) {
 
   products &&
     products.map((item: any) => {
-      item.attributes.map((i: any) => {
+      item.attributes?.map((i: any) => {
         i.attribute.map((i: any) => {
           if (!removeAttrib.find((ra) => i.attribute_id == ra)) {
             attribute_groups.push([i.attribute_id, i.name]);
@@ -67,7 +68,7 @@ export default async function Category({ params, searchParams }: any) {
     });
 
   products.map((prod: any) => {
-    prod.attributes.map((group: any) => {
+    prod.attributes?.map((group: any) => {
       group.attribute.map((attr: any) => {
         if (!removeAttrib.includes(Number(attr.attribute_id))) {
           if (attr.text) {
@@ -87,23 +88,26 @@ export default async function Category({ params, searchParams }: any) {
   return (
     <>
       <Container>
-        <div className={`flex pt-8 pb-16 lg:pb-20`}>
-          <div className="flex-shrink-0 pe-24 hidden lg:block w-96">
-            <div className="pb-7">
-              <Breadcrumb />
+        <div className="pt-4 md:pt-8">
+          <Breadcrumb />
+        </div>
+        <div className={`flex pt-4 md:pt-8 pb-16 lg:pb-20`}>
+          {attribs.length ? (
+            <div className="flex-shrink-0 pe-24 hidden lg:block w-96">
+              <ShopFilters
+                products={products}
+                attribute_groups={uniqArray(attribute_groups)}
+                attribs={uniqArray(attribs)}
+              />
             </div>
-            <ShopFilters
-              products={products}
-              attribute_groups={uniqArray(attribute_groups)}
-              attribs={uniqArray(attribs)}
-            />
-          </div>
+          ) : null}
 
-          <div className="w-full lg:-ms-9">
+          <div className={clsx(`w-full`, attribs.length && "lg:-ms-9")}>
             <SearchTopBar category={category} />
             <ProductGrid
               products={products}
               filterdProd={uniqArray(filterdProd)}
+              className=""
             />
           </div>
         </div>

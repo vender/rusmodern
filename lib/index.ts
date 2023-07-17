@@ -520,10 +520,10 @@ export async function loggedIn() {
   return data?.loggedIn
 }
 
-export async function getBanners(layout: string) {
+export async function getBanners(layout: string,position:string) {
   const data = await fetchAPI(`
     {
-      banners(layout: "${layout}") {
+      banners(layout: "${layout}" position: "${position}") {
         banner_id
         name
         status
@@ -532,6 +532,8 @@ export async function getBanners(layout: string) {
         title
         link
         image
+        width
+        height
       }
     }
   `);

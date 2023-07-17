@@ -19,7 +19,7 @@ export default function Card({
 }:Props) {
 	const { name, image } = item ?? {};
 	const imageSize: any =
-		(size === "small" && 180) || (size === "medium" && 198);
+		(size === "small" && 190) || (size === "medium" && 220);
 	
 	const placeholderImage = `/assets/placeholder/card-${size}.svg`;
 	
@@ -39,7 +39,7 @@ export default function Card({
 						width={imageSize}
 						height={imageSize}
 						quality={100}
-						className={`object-cover bg-gray-300 ${variant === "rounded" ? "rounded-md" : "rounded-full"
+						className={`object-cover aspect-square bg-gray-300 ${variant === "rounded" ? "rounded-md" : "rounded-full"
 							}`}
 					/>
 				</div>

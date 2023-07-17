@@ -6,14 +6,15 @@ import NewArrivalsProductFeed from "#/components/product/feeds/new-arrivals-prod
 
 export default async function Home() {
   const categories = await getCategories(0);
-  const banners = await getBanners('common/home');
+  const sliderhome = await getBanners('common/home', 'content_top');
+  const banners = await getBanners('common/home', 'content_bottom');
   const latestProducts = await getlatestProducts();
   
   return (
     <>
-      <Banners banners={banners} />
+      <Banners banners={sliderhome} />
       <div className="mx-auto max-w-[1920px] px-4 md:px-8 2xl:px-16">
-        <BannerCarouselBlock />
+        <BannerCarouselBlock banners={banners} />
         <CategoryBlock categories={categories} type="rounded" sectionHeading="Категории товаров" />
         <NewArrivalsProductFeed latestProducts={latestProducts} />
       </div>
