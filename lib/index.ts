@@ -487,6 +487,16 @@ export async function LogIn(email: string, password: string) {
   return data?.login
 }
 
+export async function logOut() {
+  const data = await fetchAPI(`
+    mutation {
+      logout
+    }
+  `, 'no-store',);
+
+  return data?.logout
+}
+
 export async function loggedIn() {
   const data = await fetchAPI(`
     {
@@ -499,8 +509,6 @@ export async function loggedIn() {
         lastname
         email
         telephone
-        fax
-        password
         salt
         cart
         wishlist

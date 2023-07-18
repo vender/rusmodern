@@ -1,9 +1,8 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
 import CartIcon from '#/components/icons/cart';
-import CartModal from './modal';
 import Cartdrawer from './drawer';
 
 export default function CartButton({
@@ -36,7 +35,6 @@ export default function CartButton({
 
   return (
     <>
-      {/* <CartModal isOpen={cartIsOpen} onClose={() => setCartIsOpen(false)} cart={cart} /> */}
       <Cartdrawer isOpen={cartIsOpen} onClose={() => setCartIsOpen(false)} cart={cart} />
 
       <button

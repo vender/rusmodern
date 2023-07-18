@@ -1,25 +1,39 @@
+"use client"
+import { useEffect, useState } from "react";
+import Modal from "#/components/modal/modal";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import React from "react";
+const LoginForm:any = dynamic(() => import("#/components/auth/login-form"));
 
-interface Props {
-  href: string;
-  className?: string;
-  btnProps: React.ButtonHTMLAttributes<any>;
-  isAuthorized: boolean;
-}
+// interface Props {
+//   href: string;
+//   className?: string;
+//   btnProps: React.ButtonHTMLAttributes<any>;
+//   isAuthorized: boolean;
+// }
 
 export default function AuthMenu({
   isAuthorized,
-  href,
   className,
   btnProps,
   children,
 }:any) {
+	const [openModal, setOpenModal] = useState(false);
+  
+  useEffect(() => {
+		document.body.style.overflow = openModal ? "hidden" : "unset";
+	}, [openModal]);
+
   return isAuthorized ? (
-    <Link href={href} className={className}>
-      {children}
-    </Link>
+    <Link href="#" {...btnProps} />
   ) : (
-    <button {...btnProps} />
+    <>
+      <button onClick={()=>setOpenModal(true)} className={className}>
+        {children}
+      </button>
+      <Modal open={openModal} onClose={()=>setOpenModal(false)}>
+        <LoginForm setOpenModal={setOpenModal} />
+      </Modal>
+    </>
   )
 }

@@ -3,6 +3,7 @@ import { siteSettings } from "#/lib/site-settings";
 import Cart from '#/components/cart';
 import CartIcon from '#/components/icons/cart';
 import SearchIcon from "#/components/icons/search-icon";
+import { loggedIn } from '#/lib';
 // import MobileMenu from './mobile';
 import Logo from "#/components/ui/logo";
 import HeaderMenu from "#/components/navbar/header-menu";
@@ -35,6 +36,8 @@ export default async function Navbar({categories, infoPages}:any) {
     }
   }).filter((item:any) => item);
   
+  const isLogedIn = await loggedIn();
+
   const mainMenu = {
     menu: [
       {
@@ -55,17 +58,6 @@ export default async function Navbar({categories, infoPages}:any) {
     >
       <div className="innerSticky text-gray-700 body-font fixed bg-white w-full h-16 sm:h-20 lg:h-24 z-20 ps-4 md:ps-0 lg:ps-6 pe-4 lg:pe-6 transition duration-200 ease-in-out">
         <div className="flex items-center justify-center mx-auto max-w-[1920px] h-full w-full">
-          <button
-            aria-label="Menu"
-            className="menuBtn hidden md:flex lg:hidden flex-col items-center justify-center px-5 2xl:px-7 flex-shrink-0 h-full outline-none focus:outline-none"
-          // onClick={handleMobileMenu}
-          >
-            <span className="menuIcon">
-              <span className="bar" />
-              <span className="bar" />
-              <span className="bar" />
-            </span>
-          </button>
 
           <Logo className='inline-flex focus:outline-none' href={siteSettings.logo.href} width={siteSettings.logo.width} height={siteSettings.logo.height} />
 
@@ -84,16 +76,15 @@ export default async function Navbar({categories, infoPages}:any) {
             </button>
             <div className="-mt-0.5 flex-shrink-0">
               <AuthMenu
-                isAuthorized={false}
-                href={`/#`}
+                isAuthorized={isLogedIn ? true: false}
                 className="text-sm xl:text-base text-heading font-semibold"
                 btnProps={{
                   className:
                     "text-sm xl:text-base text-heading font-semibold focus:outline-none",
-                  children: "Войти",
+                  children: "Аккаунт",
                 }}
               >
-                {"text-account"}
+                Войти
               </AuthMenu>
             </div>
             <Suspense fallback={<CartIcon />}>
