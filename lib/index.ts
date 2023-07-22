@@ -310,6 +310,74 @@ export async function getProducts(parent: number) {
   return data?.products
 }
 
+export async function getOrders(start: number, limit:number) {
+  const data = await fetchAPI(`
+  {
+    orders(start: ${start}, limit: ${limit}) {
+      order_id
+      invoice_no
+      invoice_prefix
+      store {
+        store_id
+        name
+        url
+        ssl
+      }
+      products {
+        order_product_id
+        order_id
+        product_id
+        name
+        model
+        quantity
+        price
+        total
+        tax
+        reward
+      }
+      store_name
+      store_url
+      customer_id
+      firstname
+      lastname
+      email
+      telephone
+      custom_field
+      payment_firstname
+      payment_lastname
+      payment_company
+      payment_address_1
+      payment_address_2
+      payment_postcode
+      payment_city
+      payment_custom_field
+      payment_method
+      payment_code
+      shipping_firstname
+      shipping_lastname
+      shipping_company
+      shipping_address_1
+      shipping_address_2
+      shipping_postcode
+      shipping_city
+      shipping_custom_field
+      shipping_method
+      comment
+      total
+      order_status_id
+      order_status
+      commission
+      ip
+      date_added
+      date_modified
+    }
+  }
+  `);
+  return data?.orders 
+}
+
+
+
 export async function getBestsellerProducts() {
   const data = await fetchAPI(`
     {
