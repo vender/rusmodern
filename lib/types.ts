@@ -51,3 +51,11 @@ export type SEO = {
   title: string;
   description: string;
 };
+
+export type OrderItem = {
+  price: number;
+  quantity: number;
+  id: number;
+  name: string;
+  total: number;
+}

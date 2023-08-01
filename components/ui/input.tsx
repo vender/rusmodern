@@ -11,6 +11,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	type?: string;
 	shadow?: boolean;
 	variant?: "normal" | "solid" | "outline";
+	value?: string; 
 }
 const classes = {
 	root:

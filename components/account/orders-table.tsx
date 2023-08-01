@@ -47,7 +47,7 @@ export default function OrdersTable({orders}:any) {
 								<tr key={order.order_id} className="border-b border-gray-300 last:border-b-0">
 									<td className="px-4 py-5 text-start">
 										<Link
-											href={`/my-account/orders/${order.order_id}`}
+											href={`/account/orders/${order.order_id}`}
 											className="underline hover:no-underline text-body"
 										>
 											{order.order_id}
@@ -64,7 +64,7 @@ export default function OrdersTable({orders}:any) {
 									</td>
 									<td className="text-end px-4 py-5 text-heading">
 										<Link
-											href={`/my-account/orders/${order.order_id}`}
+											href={`/account/orders/${order.order_id}`}
 											className="text-sm leading-4 bg-heading text-white px-4 py-2.5 inline-block rounded-md hover:text-white hover:bg-gray-600"
 										>
 											Открыть
@@ -82,7 +82,7 @@ export default function OrdersTable({orders}:any) {
 									Номер
 									<span className="font-normal">
 										<Link
-											href={`/my-account/orders/${order.order_id}`}
+											href={`/account/orders/${order.order_id}`}
 											className="underline hover:no-underline text-body"
 										>
 											{order.order_id}
@@ -105,7 +105,7 @@ export default function OrdersTable({orders}:any) {
 									
 									<span className="font-normal">
 										<Link
-											href={`/my-account/orders/${order.order_id}`}
+											href={`/account/orders/${order.order_id}`}
 											className="text-sm leading-4 bg-heading text-white px-4 py-2.5 inline-block rounded-md hover:text-white hover:bg-gray-600"
 										>
 											Открыть

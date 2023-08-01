@@ -1,5 +1,4 @@
 import { cookies, headers } from "next/headers";
-// import { v4 as uuidv4 } from 'uuid';
 
 const { NEXT_PUBLIC_OPENCART_DOMAIN_URL, NEXT_PUBLIC_OPENCART_API_TOKEN } = process.env;
 
@@ -27,10 +26,10 @@ async function fetchAPI(query = '', cache: RequestCache = 'default', { variables
     })
 
     const json = await res.json();
-
-    if (res?.errors) {
-      console.error(json.errors)
-      throw new Error('Failed to fetch API')
+    
+    if (json?.errors) {
+      return json;
+      // throw new Error('Failed to fetch API')
     }
 
     return json.data;
@@ -376,6 +375,104 @@ export async function getOrders(start: number, limit:number) {
   return data?.orders 
 }
 
+export async function getOrder(id:number) {
+  const data = await fetchAPI(`
+  {
+    order(id: "${id}") {
+      order_id
+      invoice_no
+      invoice_prefix
+      store {
+        store_id
+        name
+        url
+        ssl
+      }
+      products {
+        order_product_id
+        order_id
+        product_id
+        name
+        model
+        quantity
+        price
+        total
+        tax
+        reward
+      }
+      store_name
+      store_url
+      customer_id
+      firstname
+      lastname
+      email
+      telephone
+      fax
+      custom_field
+      payment_firstname
+      payment_lastname
+      payment_company
+      payment_address_1
+      payment_address_2
+      payment_postcode
+      payment_city
+      paymentZone {
+        zone_id
+        name
+        code
+        status
+      }
+      paymentCountry {
+        country_id
+        name
+        iso_code_2
+        iso_code_3
+        address_format
+        postcode_required
+        status
+      }
+      payment_custom_field
+      payment_method
+      payment_code
+      shipping_firstname
+      shipping_lastname
+      shipping_company
+      shipping_address_1
+      shipping_address_2
+      shipping_postcode
+      shipping_city
+      shippingZone {
+        zone_id
+        name
+        code
+        status
+      }
+      shippingCountry {
+        country_id
+        name
+        iso_code_2
+        iso_code_3
+        address_format
+        postcode_required
+        status
+      }
+      shipping_custom_field
+      shipping_method
+      shipping_code
+      comment
+      total
+      order_status_id
+      order_status
+      affiliate_id
+      commission
+      date_added
+      date_modified
+    }
+  }
+  `);
+  return data?.order
+}
+
 
 
 export async function getBestsellerProducts() {
@@ -565,6 +662,34 @@ export async function logOut() {
   return data?.logout
 }
 
+export async function editPassword(password: string, confirm: string) {
+  const data = await fetchAPI(`
+    mutation {
+      editPassword(password: "${password}", confirm: "${confirm}")
+    }
+  `, 'no-store',);
+  
+  return data
+}
+
+export async function editCustomer(firstname: string, lastname: string, email:string, telephone:string) {
+  const data = await fetchAPI(`
+    mutation {
+      editCustomer(
+        input: {
+          firstname: "${firstname}"
+          lastname: "${lastname}"
+          email: "${email}"
+          telephone: "${telephone}"
+          fax: ""
+        }
+      )
+    }  
+  `, 'no-store',);
+  
+  return data
+}
+
 export async function loggedIn() {
   const data = await fetchAPI(`
     {
@@ -614,4 +739,78 @@ export async function getBanners(layout: string,position:string) {
     }
   `);
   return data?.banners
+}
+
+export async function getAddresses() {
+  const data = await fetchAPI(` 
+  {
+    addresses {
+      address_id
+      firstname
+      lastname
+      company
+      address_1
+      address_2
+      postcode
+      city
+      zone {
+        zone_id
+        name
+        code
+        status
+      }
+      country {
+        country_id
+        name
+        iso_code_2
+        iso_code_3
+        address_format
+        postcode_required
+        status
+      }
+      custom_field
+    }
+  }
+  `);
+  return data?.addresses
+}
+
+export async function getShippingMethods() {
+  const data = await fetchAPI(` 
+  {
+    shippingMethods {
+      title
+      quote {
+        code
+        title
+        cost
+        text
+        details
+      }
+      sort_order
+      error
+    }
+  }
+  `);
+  return data?.shippingMethods
+}
+
+export async function getPaymentMethods() {
+  const data = await fetchAPI(` 
+  {
+    paymentMethods {
+      title
+      quote {
+        code
+        title
+        cost
+        text
+        details
+      }
+      sort_order
+      error
+    }
+  }
+  `);
+  return data?.paymentMethods
 }

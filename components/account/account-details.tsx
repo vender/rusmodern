@@ -2,23 +2,22 @@
 import Input from "#/components/ui/input";
 import Button from "#/components/ui/button";
 import { useForm } from "react-hook-form";
-import { RadioBox } from "#/components/ui/radiobox";
+import { startTransition, useState } from "react";
+import { useRouter } from 'next/navigation';
+import { editCustomer } from "#/lib";
 
 export interface UpdateUserType {
 	firstName: string;
 	lastName: string;
-	displayName: string;
-	phoneNumber: string;
+	telephone: string;
 	email: string;
-	password: string;
-	confirmPassword: string;
-	gender: string;
 }
 
 const defaultValues = {};
-const AccountDetails: React.FC = () => {
-	// const { mutate: updateUser, isLoading } = useUpdateUserMutation();
-	const isLoading = false;
+
+export default function AccountDetails({ userInfo }:any) {
+	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const {
 		register,
@@ -27,9 +26,45 @@ const AccountDetails: React.FC = () => {
 	} = useForm<UpdateUserType>({
 		defaultValues,
 	});
-	function onSubmit(input:any) {
-		// updateUser(input);
+
+	const handleEdit = async (firstname: string, lastname: string, email:string, telephone:string) => {
+		setIsLoading(true);
+
+		const res = await fetch(`/api/user/edit`, {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json",
+				"charset" : "UTF-8"
+			},
+			body: JSON.stringify({
+				firstname,
+				lastname,
+				email,
+				telephone
+			})
+		});
+		
+		const data = await res.json();
+		
+		if (data.result.errors) {
+			alert(data.result.errors[0].message);
+			setIsLoading(false);
+			return;
+		}
+
+		startTransition(() => {
+			router.refresh();
+			alert('Информация успешно изменена!');
+			setIsLoading(false);
+		});
+
 	}
+
+	function onSubmit(input: any) {
+		const {firstName, lastName, email, telephone} = input;
+		handleEdit(firstName, lastName, email, telephone);
+	}
+	
 
 	return (
 		<div
@@ -46,75 +81,55 @@ const AccountDetails: React.FC = () => {
 				<div className="flex flex-col space-y-4 sm:space-y-5">
 					<div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
 						<Input
-							labelKey="forms:label-first-name"
+							labelKey="Имя"
 							{...register("firstName", {
-								required: "forms:first-name-required",
+								required: "Введите имя",
 							})}
 							variant="solid"
 							className="w-full sm:w-1/2"
 							errorKey={errors.firstName?.message as string}
+							defaultValue={userInfo?.firstname}
 						/>
 						<Input
-							labelKey="forms:label-last-name"
+							labelKey="Фамилия"
 							{...register("lastName", {
-								required: "forms:last-name-required",
+								required: "Введите фамилию",
 							})}
 							variant="solid"
 							className="w-full sm:w-1/2"
 							errorKey={errors.lastName?.message as string}
+							defaultValue={userInfo?.lastname}
 						/>
 					</div>
-					<Input
-						labelKey="forms:label-display-name"
-						{...register("displayName", {
-							required: "forms:display-name-required",
-						})}
-						variant="solid"
-						errorKey={errors.displayName?.message as string}
-					/>
 					<div className="flex flex-col sm:flex-row sm:gap-x-3 space-y-4 sm:space-y-0">
 						<Input
 							type="tel"
-							labelKey="forms:label-phone"
-							{...register("phoneNumber", {
-								required: "forms:phone-required",
+							labelKey="Номер телефона"
+							{...register("telephone", {
+								required: "Введите телефон",
 							})}
 							variant="solid"
 							className="w-full sm:w-1/2"
-							errorKey={errors.phoneNumber?.message as string}
+							errorKey={errors.telephone?.message as string}
+							defaultValue={userInfo?.telephone}
 						/>
 						<Input
 							type="email"
-							labelKey="forms:label-email-star"
+							labelKey="E-mail"
 							{...register("email", {
 								required: "forms:email-required",
 								pattern: {
 									value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-									message: "forms:email-error",
+									message: "Введите e-mail",
 								},
 							})}
 							variant="solid"
 							className="w-full sm:w-1/2"
 							errorKey={errors.email?.message as string}
+							defaultValue={userInfo?.email}
 						/>
 					</div>
-					<div className="relative flex flex-col">
-						<span className="mt-2 text-sm text-heading font-semibold block pb-1">
-							common:text-gender
-						</span>
-						<div className="mt-2 flex items-center space-s-6">
-							<RadioBox
-								labelKey="forms:label-male"
-								{...register("gender")}
-								value="male"
-							/>
-							<RadioBox
-								labelKey="forms:label-female"
-								{...register("gender")}
-								value="female"
-							/>
-						</div>
-					</div>
+
 					<div className="relative">
 						<Button
 							type="submit"
@@ -122,13 +137,11 @@ const AccountDetails: React.FC = () => {
 							disabled={isLoading}
 							className="h-12 mt-3 w-full sm:w-32"
 						>
-							common:button-save
+							Сохранить
 						</Button>
 					</div>
 				</div>
 			</form>
 		</div>
-	);
-};
-
-export default AccountDetails;
+	)
+}

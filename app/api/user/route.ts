@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { LogIn, logOut } from '#/lib';
 
+// Вход в аккаунт
 export async function POST(req: NextRequest): Promise<Response> {
   const {email, password} = await req.json();
 
@@ -12,7 +13,7 @@ export async function POST(req: NextRequest): Promise<Response> {
   }
 }
 
-// Remove Cart item
+// Выход пользователя из аккаунта
 export async function GET(req: NextRequest): Promise<Response> {
 
   try {

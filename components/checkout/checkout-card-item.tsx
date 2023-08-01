@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function CheckoutItem({item}) {
+export default function CheckoutItem({item}:any) {
 	
   	return (
 		<div className="flex py-4 items-center lg:px-3 border-b border-gray-300">

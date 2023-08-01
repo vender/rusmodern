@@ -12,7 +12,7 @@ export const RadioBox = React.forwardRef<HTMLInputElement, RadioBoxProps>(
 					ref={ref}
 					{...rest}
 				/>
-				<span className="ms-2 text-sm text-heading relative">
+				<span className="ms-2 text-xl text-heading relative">
 					{labelKey}
 				</span>
 			</label>
