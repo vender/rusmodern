@@ -4,7 +4,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Pagination, Navigation, Autoplay } from "swiper";
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 
 type CarouselPropsType = {
 	children?: any;
