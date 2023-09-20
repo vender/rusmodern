@@ -1,21 +1,23 @@
-import React from 'react'
-import { getInformationPage } from "#/lib"
-// import Prose from '#/components/prose';
+import Container from "#/components/ui/container";
+import { getInformationPage } from "#/lib";
+import Prose from "#/components/prose";
 
-async function page({params} : {params:any}) {
+async function page({ params }: { params: any }) {
   const pageInfo = await getInformationPage(params.id);
   // const description = product?.description.replace(/(<([^>]+)>)|(&lt;...|gt;)|&/gi, "");
   return (
-      <div className="mx-auto px-6 lg:px-8 py-24">
-        <div className="sm:text-center">
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{pageInfo.title}</p>
-          <div className="mx-auto mt-6 text-lg leading-8 text-gray-600 whitespace-pre-wrap">
-            {/* <Prose html={pageInfo.description} /> */}
-            {pageInfo.description}
-          </div>
+    <Container>
+      <div className="py-16 lg:py-20 px-0 max-w-5xl mx-auto space-y-4">
+        <h2 className="text-lg md:text-xl xl:text-2xl font-bold text-heading mb-3 xl:mb-5">
+          {pageInfo.title}
+        </h2>
+        <div className="py-4">
+          {/* {pageInfo.description} */}
+          <Prose className="overflow-hidden" html={pageInfo.description} />
         </div>
       </div>
-  )
+    </Container>
+  );
 }
 
-export default page
+export default page;

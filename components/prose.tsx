@@ -1,5 +1,6 @@
-import clsx from 'clsx';
-import type { FunctionComponent } from 'react';
+import clsx from "clsx";
+import parse from "html-react-parser";
+import type { FunctionComponent } from "react";
 
 interface TextProps {
   html: string;
@@ -8,13 +9,9 @@ interface TextProps {
 
 const Prose: FunctionComponent<TextProps> = ({ html, className }) => {
   return (
-    <div
-      className={clsx(
-        'prose mx-auto text-base',
-        className
-      )}
-      dangerouslySetInnerHTML={{ __html: html as string }}
-    />
+    <>
+      {parse(parse(html) as any)}
+    </>
   );
 };
 
