@@ -3,52 +3,11 @@ import { siteSettings } from "#/lib/site-settings";
 import Cart from '#/components/cart';
 import CartIcon from '#/components/icons/cart';
 import SearchIcon from "#/components/icons/search-icon";
-import { loggedIn } from '#/lib';
-// import MobileMenu from './mobile';
 import Logo from "#/components/ui/logo";
 import HeaderMenu from "#/components/navbar/header-menu";
 import AuthMenu from './auth-menu';
 
-async function getCategoryPages(categories:any){
-  return categories.map((cat:any) => {
-    const subCat = cat.categories ? cat.categories : false;
-    return cat.top ? {
-      id: cat.category_id,
-      path: cat.category_id,
-      label: cat.name,
-      subMenu: subCat.length ? subCat.map((subCat:any) =>{
-        return {
-          id: subCat.category_id,
-          path: subCat.category_id,
-          label: subCat.name,
-        }
-      }).filter((item:any) => item) : false
-    } : null
-  }).filter((item:any) => item)
-}
-
-export default async function Navbar({categories, infoPages}:any) {
-  infoPages = infoPages.map((infoPage:any) =>{
-    return infoPage.bottom && {
-      id: infoPage.information_id,
-      path: `/info/${infoPage.information_id}`,
-      label: infoPage.title,
-    }
-  }).filter((item:any) => item);
-  
-  const isLogedIn = await loggedIn();
-
-  const mainMenu = {
-    menu: [
-      {
-        id: 0,
-        path: "/",
-        label: "Категории",
-        subMenu: await getCategoryPages(categories)
-      },
-      ...infoPages
-    ]
-  }
+export default async function Navbar({mainMenu, isLogedIn}:any) {
   
   return (
     <header
@@ -62,7 +21,7 @@ export default async function Navbar({categories, infoPages}:any) {
           <Logo className='inline-flex focus:outline-none' href={siteSettings.logo.href} width={siteSettings.logo.width} height={siteSettings.logo.height} />
 
           <HeaderMenu
-            data={mainMenu.menu}
+            menu={mainMenu.menu}
             className="hidden lg:flex md:ms-6 xl:ms-10"
           />
 

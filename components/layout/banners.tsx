@@ -17,7 +17,7 @@ export default function Banners({ banners }: { banners: any }) {
 					clickable: true,
 				}}
 			>
-                {banners.map((banner: any) => (
+                {banners && banners?.map((banner: any) => (
 
                     <SwiperSlide className="carouselItem px-0 2xl:px-3.5" key={banner.banner_image_id}>
                         <Link

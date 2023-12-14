@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { heightCollapse } from "#/components/ui/motion/height-collapse";
+import Prose from "#/components/prose";
 
 type CollapseProps = {
 	i: number;
@@ -78,7 +79,7 @@ export function Collapse({
 									variant === "gray",
 							})}
 						>
-							{contentKey ? contentKey : content}
+							<Prose className="overflow-hidden" html={content} />
 						</div>
 					</motion.div>
 				)}

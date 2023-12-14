@@ -1,6 +1,6 @@
 import Container from "#/components/ui/container";
 import { cookies } from "next/headers";
-import { getCart, getAddresses, loggedIn, getShippingMethods, getPaymentMethods } from "#/lib";
+import { getCart, getAddresses, loggedIn, getShippingMethods, getPaymentMethods, confirmOrder } from "#/lib";
 import CheckoutForm from "#/components/checkout/checkout-form";
 import CheckoutCard from "#/components/checkout/checkout-card";
 import Empty from "#/components/checkout/empty";
@@ -35,7 +35,9 @@ export default async function CheckoutPage() {
 
   const paymetMethods = await getPaymentMethods();
   const shipingMethods = await getShippingMethods();
-
+//   const confirm = await confirmOrder();
+	// console.log(confirm);
+	
   if (sessionId) {
     cart = await getCart();
 	userAddress = await getAddresses();

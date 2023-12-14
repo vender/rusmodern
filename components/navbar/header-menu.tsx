@@ -3,42 +3,13 @@ import Link from 'next/link';
 import { FaChevronDown } from "react-icons/fa";
 import ListMenu from "#/components/navbar/list-menu";
 
-export default function HeaderMenu({ data, className }: { data: any; className?: string }) {
+export default function HeaderMenu({ menu, className }: { menu: any; className?: string }) {
 	return (
 		<nav className={clsx(`headerMenu flex w-full relative`, className)}>
 
-			{/* <nav className="fixed w-full z-10 flex items-center justify-between bg-white p-4 dark:bg-black lg:px-6">
-				<div className="block w-1/3 md:hidden">
-					<MobileMenu menu={menu} />
-				</div>
-				<div className="flex justify-self-center md:justify-self-start">
-					<div className="md:mr-4">
-
-					</div>
-					{menu.length ? (
-						<ul className="hidden md:flex">
-							{menu.map((item: Menu) => (
-								item.bottom ? <li key={item.title}>
-									<Link
-										href={`/informations/${item.information_id}`}
-										className="px-2 py-1 text-gray-800 hover:text-gray-500 dark:text-gray-200 dark:hover:text-gray-400 inline-block shrink"
-									>
-										{item.title}
-									</Link>
-								</li>
-									: null
-							))}
-						</ul>
-					) : null}
-				</div>
-
-			</nav> */}
-
-
-			{data?.map((item: any) => (
+			{menu?.map((item: any) => (
 				<div
-					className={`menuItem group cursor-pointer py-7 ${item.subMenu ? "relative" : ""
-						}`}
+					className={`menuItem group cursor-pointer py-7 ${item.subMenu ? "relative" : ""}`}
 					key={item.id}
 				>
 					<Link

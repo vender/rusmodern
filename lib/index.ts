@@ -13,7 +13,7 @@ async function fetchAPI(query = '', cache: RequestCache = 'default', { variables
   }
 
   try {
-    const res: any = await fetch(`${NEXT_PUBLIC_OPENCART_DOMAIN_URL!}/index.php?route=api/graphql/usage&token=${NEXT_PUBLIC_OPENCART_API_TOKEN}`, {
+    const res: any = await fetch(`${NEXT_PUBLIC_OPENCART_DOMAIN_URL}/index.php?route=api/graphql/usage&token=${NEXT_PUBLIC_OPENCART_API_TOKEN}`, {
       method: 'POST',
       headers: sesHeaders,
       credentials: 'include',
@@ -27,6 +27,8 @@ async function fetchAPI(query = '', cache: RequestCache = 'default', { variables
 
     const json = await res.json();
     
+    
+
     if (json?.errors) {
       return json;
       // throw new Error('Failed to fetch API')
@@ -780,13 +782,8 @@ export async function getShippingMethods() {
   {
     shippingMethods {
       title
-      quote {
-        code
-        title
-        cost
-        text
-        details
-      }
+      code
+      text
       sort_order
       error
     }
@@ -800,17 +797,45 @@ export async function getPaymentMethods() {
   {
     paymentMethods {
       title
-      quote {
-        code
-        title
-        cost
-        text
-        details
-      }
+      code
       sort_order
+      details
       error
     }
   }
   `);
   return data?.paymentMethods
+}
+
+export async function confirmOrder() {
+  const data = await fetchAPI(`
+    mutation {
+      confirmOrder {
+        name
+        text
+      }
+    }
+  `, 'no-store',);
+  
+  return data?.confirmOrder
+}
+
+export async function setPaymentMethod(code:string, comment:string = '') {
+  const data = await fetchAPI(`
+    mutation {
+      setPaymentMethod(code: "${code}", comment: "${comment}", agree: 1)
+    }
+  `, 'no-store',);
+  
+  return data.setPaymentMethod
+}
+
+export async function setShippingMethod(code:string, comment:string = '') {
+  const data = await fetchAPI(`
+    mutation {
+      setShippingMethod(code: "${code}")
+    }
+  `, 'no-store',);
+  
+  return data.setPaymentMethod
 }
