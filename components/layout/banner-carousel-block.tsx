@@ -33,7 +33,7 @@ export default function BannerCarouselBlock({
 						autoplay={{ delay: 5000 }}
 						className="mx-0"
 						pagination={false}
-						navigation={true}
+						arrows={window.innerWidth > 480 ? false: true}
 					>
 						{banners?.map((banner: any) => (
 							<SwiperSlide key={`banner-key-${banner?.banner_image_id}`}>

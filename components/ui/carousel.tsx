@@ -15,7 +15,7 @@ type CarouselPropsType = {
 	centeredSlides?: boolean;
 	breakpoints?: {} | any;
 	pagination?: {} | any;
-	navigation?: {} | any;
+	arrows?: {} | any;
 	autoHeight?: boolean;
 	autoplay?: {} | any;
 };
@@ -28,7 +28,7 @@ export default function Carousel({
 	paginationVariant = "default",
 	pagination,
 	breakpoints,
-	navigation,
+	arrows,
 	autoHeight = false,
 	autoplay = {
 		delay: 5000,
@@ -58,7 +58,7 @@ export default function Carousel({
 			>
 				{children}
 			</Swiper>
-			{navigation && 
+			{arrows && 
 				(<div className={`flex items-center w-full absolute top-2/4 z-10 ${buttonClassName}`}>
 					<button
 						ref={prevRef}

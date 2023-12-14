@@ -58,7 +58,7 @@ export default function CategoryBlock({
 						autoplay={{ delay: 5000 }}
 						className="mx-0"
 						pagination={false}
-						navigation={true}
+						arrows={true}
 					>
 					{isLoading && !categories
 						? Array.from({ length: 10 }).map((_, idx) => {
