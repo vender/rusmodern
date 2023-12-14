@@ -57,9 +57,8 @@ export const BreadcrumbItems = (props: any) => {
 	);
 };
 
-export default function breadcrumb({ separator = "/", parent, title }:{ separator?: string, parent: any, title: string | boolean }) {
+export default function Breadcrumb({ separator = "/", parent, title }:{ separator?: string, parent: any, title: string | boolean }) {
 	const pathname = usePathname();
-	console.log(parent);
 	
   	return (
 		<BreadcrumbItems separator={separator}>
