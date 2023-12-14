@@ -1,9 +1,7 @@
 "use client"
 import React from "react";
-// import { usePathname } from 'next/navigation'
-// import ActiveLink from "#/components/ui/active-link";
+import { usePathname } from 'next/navigation'
 import Link from "next/link";
-// import useBreadcrumb, { convertBreadcrumbTitle } from "@utils/use-breadcrumb";
 
 interface Props {
 	children: any;
@@ -59,45 +57,33 @@ export const BreadcrumbItems = (props: any) => {
 	);
 };
 
-export default function breadcrumb({ separator = "/" }:{ separator?: string }) {
-	// const pathname = usePathname();
-
-	const breadcrumbs:any = [
-		{
-			href: '/product/567',
-			name: 'Товар 1'
-		}
-	];
-
+export default function breadcrumb({ separator = "/", parent, title }:{ separator?: string, parent: any, title: string | boolean }) {
+	const pathname = usePathname();
+	console.log(parent);
 	
-
   	return (
 		<BreadcrumbItems separator={separator}>
-			{/* <ActiveLink href={"/"} activeClassName="font-semibold text-heading">
-				Гланая
-			</ActiveLink> */}
 
 			<Link href={"/"}>
 				Гланая
 			</Link>
 
-			{breadcrumbs?.map((breadcrumb: any) => (
+			{parent.category_id && 
 				<Link
-					key={breadcrumb.href}
-					href={breadcrumb.href}
+					href={`/category/${parent.category_id}`}
 				>
-					{breadcrumb.name}
+					{parent.name}
 				</Link>
-				
-				// <ActiveLink
-				// 	href={breadcrumb.href}
-				// 	activeClassName="font-semibold text-heading"
-				// 	key={breadcrumb.href}
-				// 	className="capitalize"
-				// >
-				// 	{breadcrumb.name}
-				// </ActiveLink>
-			))}
+			}
+
+			{title && 
+				<Link
+					href={pathname}
+				>
+					{title}
+				</Link>
+			}
+
 		</BreadcrumbItems>
   	)
 }

@@ -29,7 +29,7 @@ export default async function ProductPage({ params }: { params: { product_id: nu
             <Divider className="mb-0" />
             <Container>
                 <div className="pt-8">
-                    <Breadcrumb/>
+                    <Breadcrumb parent={product.categories[0]} title={false}/>
                 </div>
                 <ProductSingleDetails product={product} />
                 {/* <RelatedProducts sectionHeading="text-related-products" /> */}

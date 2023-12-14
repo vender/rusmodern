@@ -89,7 +89,7 @@ export default async function Category({ params, searchParams }: any) {
     <>
       <Container>
         <div className="pt-4 md:pt-8">
-          <Breadcrumb />
+          <Breadcrumb parent={category?.parent} title={category.name} />
         </div>
         <div className={`flex pt-4 md:pt-8 pb-16 lg:pb-20`}>
           {attribs.length ? (

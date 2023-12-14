@@ -256,6 +256,14 @@ export async function getCategory(id: number = 0) {
       meta_keyword
       layout_id
       products_count
+      parent {
+        category_id
+        name
+        image
+        top
+        column
+        status
+      }
     }
   }
   `);
