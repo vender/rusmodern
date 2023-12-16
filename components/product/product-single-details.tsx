@@ -23,25 +23,18 @@ interface Product {
 	}
 }
 
-function productAttribs(product:any){
-	const attrib = product.attributes?.map((item:any)=>{
-		// console.log(item);
-	});
-
-	// return product.attributes;
-}
-
 export default function ProductSingleDetails({ product }: Product) {
-	// console.log(product);
 
 	const productData = [
 		{
 			title: 'Описание товара',
+			type: 'description',
 			content: product.description
 		},
 		{
 			title: 'Характеристики',
-			content: productAttribs(product)
+			type: 'attrib',
+			content: product.attributes
 		}
 	]
 

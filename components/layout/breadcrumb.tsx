@@ -64,7 +64,7 @@ export default function Breadcrumb({ separator = "/", parent, title }:{ separato
 		<BreadcrumbItems separator={separator}>
 
 			<Link href={"/"}>
-				Гланая
+				Главная
 			</Link>
 
 			{parent.category_id && 

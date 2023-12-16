@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { heightCollapse } from "#/components/ui/motion/height-collapse";
 import Prose from "#/components/prose";
+import Attriblist from "#/components/ui/attrib-list";
 
 type CollapseProps = {
 	i: number;
@@ -79,7 +80,10 @@ export function Collapse({
 									variant === "gray",
 							})}
 						>
-							<Prose className="overflow-hidden" html={content} />
+							{content && typeof content == 'object' ?
+								<Attriblist content={content} /> :
+								<Prose className="overflow-hidden" html={content} />
+							}
 						</div>
 					</motion.div>
 				)}

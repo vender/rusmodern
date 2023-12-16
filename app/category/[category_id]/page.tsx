@@ -4,6 +4,7 @@ import ProductGrid from "#/components/product/product-grid";
 import { getCategory, getProducts } from "#/lib";
 import ShopFilters from "#/components/ui/filters";
 import SearchTopBar from "#/components/ui/top-bar";
+import { removeAttrib } from "#/lib/attrib-filter";
 import clsx from "clsx";
 
 type Props = {
@@ -32,11 +33,6 @@ const uniqArray = (array: any) => {
     )
     .map(JSON.parse);
 };
-
-const removeAttrib = [
-  209, 252, 219, 30, 27, 16, 143, 20, 153, 15, 29, 215, 162, 28, 19, 154, 25,
-  18, 26,
-];
 
 export default async function Category({ params, searchParams }: any) {
   const products = await getProducts(params.category_id);

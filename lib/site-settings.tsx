@@ -1,7 +1,7 @@
 export const siteSettings = {
 	name: "ilMonte",
 	description:
-		"Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS.",
+		"NextJS, TypeScript, React-Query and Tailwind CSS.",
 	author: {
 		name: "vender",
 		websiteUrl: "/#",
