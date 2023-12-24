@@ -819,8 +819,25 @@ export async function confirmOrder() {
   const data = await fetchAPI(`
     mutation {
       confirmOrder {
-        name
-        text
+        products {
+          cart_id
+          product_id
+          name
+          model
+          option
+          recurring
+          quantity
+          subtract
+          price
+          total
+          href
+        }
+        vouchers
+        totals {
+          title
+          text
+        }
+        payment
       }
     }
   `, 'no-store',);

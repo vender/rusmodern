@@ -7,8 +7,10 @@ import Button from "#/components/ui/button";
 import { AddressSuggestions } from 'react-dadata';
 import 'react-dadata/dist/react-dadata.css';
 import { useId, useState, startTransition } from "react";
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { RadioBox } from "../ui/radiobox";
+import parse from "html-react-parser";
+import { useRouter } from "next/navigation";
 
 interface CheckoutInputType {
 	firstName: string;
@@ -20,24 +22,32 @@ interface CheckoutInputType {
 	// zipCode: string;
 	save: boolean;
 	note: string;
+	payment_method: string;
+	shipping_method: string;
 }
 
-export default function CheckoutForm({ address, userInfo, paymetMethods, shipingMethods }: any) {
+interface sendConfirmOrder {
+	result: {
+		payment: string;
+	};
+	status: number;
+}
+
+export default function CheckoutForm({ address, userInfo, paymentMethods, shipingMethods }: any) {
 	const {
 		register,
 		control,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<CheckoutInputType>();
-
+	
 	const id = useId();
-	const router = useRouter();
+	// const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const [value, setValue] = useState(address && address[0]?.address_1) as any;
-
-	const setPaymentMethod = async (code:string, comment:string) => {
-		setIsLoading(true);
-
+	const [payForm, setPayForm] = useState('');
+	
+	const setPaymentMethod = async (code:string, comment:string) => {		
 		const response = await fetch(`/api/checkout/set-payment-method`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -45,23 +55,12 @@ export default function CheckoutForm({ address, userInfo, paymetMethods, shiping
 				comment,
 			})
 		});
-
-		const data:{result:boolean,status:number} = await response.json();
 		
-		if (data.result) {
-			setIsLoading(false);
-			return;
-		}
-
-		// startTransition(() => {
-		// 	router.refresh();
-		// });
-
+		const data:{result:boolean,status:number} = await response.json();
+		return data;
 	}
 	
 	const setShippingMethod = async (code:string) => {
-		setIsLoading(true);
-
 		const response = await fetch(`/api/checkout/set-shipping-method`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -70,15 +69,40 @@ export default function CheckoutForm({ address, userInfo, paymetMethods, shiping
 		});
 
 		const data:{status: number} = await response.json();
+		return data;
+	}
 
-		if (data.status == 204) {
-			setIsLoading(false);
-			return;
-		}
+	const confirmOrder = async () => {
+		const response = await fetch(`/api/checkout/confirm`, {
+			method: 'GET'
+		});
+
+		const data:{status: number} = await response.json();
+		return data;
 	}
 	
-	function onSubmit(input: CheckoutInputType) {
-		console.log(input);
+	const router = useRouter();
+
+	async function onSubmit(input: CheckoutInputType) {
+		setIsLoading(true);
+
+		const setPayShip = await Promise.all([setPaymentMethod(input.payment_method, input.note), setShippingMethod(input.shipping_method)]);
+		// if(setPayShip) {
+			const sendConfirmOrder = await confirmOrder() as sendConfirmOrder;
+		// }
+
+		console.log(sendConfirmOrder.result.payment);
+
+		if(sendConfirmOrder?.result?.payment) {
+			router.push(sendConfirmOrder.result.payment);
+			// redirect('/');
+		}
+
+		// if (data.status == 204) {
+		// 	setIsLoading(false);
+		// 	return;
+		// }
+		// console.log(input);
 	}
 
 	return (
@@ -166,25 +190,6 @@ export default function CheckoutForm({ address, userInfo, paymetMethods, shiping
 						<CheckBox name="Сохранить информацию" />
 					</div> */}
 
-
-					<h3 className="text-lg md:text-xl xl:text-xl font-bold text-heading mb-6 xl:mb-8">
-						Способ оплаты
-					</h3>
-
-					{paymetMethods && paymetMethods.map((payment:any, idx:number)=> {
-						// console.log(idx);
-						
-						return <RadioBox 
-							key={payment?.code}
-							labelKey={payment.title}
-							name='payment_method'
-							defaultChecked={idx == 0 ? true : false}
-							data-paycode={payment?.code}
-							onChange={(e:any) => setPaymentMethod(e.target?.dataset.paycode, '')}
-							// onClick={}
-						/>}
-					)}
-					
 					<h3 className="text-lg md:text-xl xl:text-xl font-bold text-heading mb-6 xl:mb-8">
 						Способ доставки
 					</h3>
@@ -192,15 +197,39 @@ export default function CheckoutForm({ address, userInfo, paymetMethods, shiping
 					{shipingMethods && shipingMethods.map((shipping:any, idx:number)=>
 						<RadioBox 
 							key={shipping?.code} 
-							labelKey={shipping.title} 
-							name='shipping_method' 
-							defaultChecked={idx == 0 ? true : false}
+							labelKey={shipping.title}
+							{...register("shipping_method", {
+								required: "Выберите способ доставки",
+							})}
+							value={shipping?.code}
+							// defaultChecked={idx == 0 ? true : false}
 							data-shipcode={shipping?.code}
-							onChange={(e:any) => setShippingMethod(e.target?.dataset.shipcode)}
+							// onChange={(e:any) => setShippingMethod(e.target?.dataset.shipcode)}
 							// onClick={(e:any) => setShippingMethod(e.target?.dataset.shipcode)}
 						/>
 					)}
+					{errors.shipping_method && <p className="my-2 text-xs text-red-500">{errors.shipping_method?.message}</p>}
 
+
+					<h3 className="text-lg md:text-xl xl:text-xl font-bold text-heading mb-6 xl:mb-8">
+						Способ оплаты
+					</h3>
+
+					{paymentMethods && paymentMethods.map((payment:any, idx:number)=> {
+						return <RadioBox 
+							key={payment?.code}
+							labelKey={payment.title}
+							{...register("payment_method", {
+								required: "Выберите способ оплаты",
+							})}
+							value={payment?.code}
+							// defaultChecked={idx == 0 ? true : false}
+							data-paycode={payment?.code}
+							// onChange={(e:any) => setPaymentMethod(e.target?.dataset.paycode, '')}
+							// onClick={}
+						/>
+					})}
+					{errors.payment_method && <p className="my-2 text-xs text-red-500">{errors.payment_method?.message}</p>}
 
 					<TextArea
 						labelKey="Коментарий к заказу"
@@ -209,14 +238,14 @@ export default function CheckoutForm({ address, userInfo, paymetMethods, shiping
 						className="relative pt-3 xl:pt-6"
 					/>
 					<div className="flex w-full">
-						<Button
+						{payForm ? parse(payForm) : <Button
 							type="submit"
 							loading={isLoading}
 							className="w-full sm:w-auto"
 							disabled={isLoading}
 						>
 							Оформить заказ
-						</Button>
+						</Button>}
 					</div>
 				</div>
 			</form>
