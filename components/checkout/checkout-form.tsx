@@ -7,9 +7,7 @@ import Button from "#/components/ui/button";
 import { AddressSuggestions } from 'react-dadata';
 import 'react-dadata/dist/react-dadata.css';
 import { useId, useState, startTransition } from "react";
-// import { useRouter } from 'next/navigation';
 import { RadioBox } from "../ui/radiobox";
-import parse from "html-react-parser";
 import { useRouter } from "next/navigation";
 
 interface CheckoutInputType {
@@ -45,7 +43,6 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 	// const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const [value, setValue] = useState(address && address[0]?.address_1) as any;
-	const [payForm, setPayForm] = useState('');
 	
 	const setPaymentMethod = async (code:string, comment:string) => {		
 		const response = await fetch(`/api/checkout/set-payment-method`, {
@@ -74,7 +71,7 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 
 	const confirmOrder = async () => {
 		const response = await fetch(`/api/checkout/confirm`, {
-			method: 'GET'
+			method: 'POST'
 		});
 
 		const data:{status: number} = await response.json();
@@ -86,16 +83,10 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 	async function onSubmit(input: CheckoutInputType) {
 		setIsLoading(true);
 
-		const setPayShip = await Promise.all([setPaymentMethod(input.payment_method, input.note), setShippingMethod(input.shipping_method)]);
-		// if(setPayShip) {
-			const sendConfirmOrder = await confirmOrder() as sendConfirmOrder;
-		// }
+		const setPayShip = await Promise.all([setPaymentMethod(input.payment_method, input.note), setShippingMethod(input.shipping_method), confirmOrder()]) as any;
 
-		console.log(sendConfirmOrder.result.payment);
-
-		if(sendConfirmOrder?.result?.payment) {
-			router.push(sendConfirmOrder.result.payment);
-			// redirect('/');
+		if(!setPayShip?.reason) {
+			router.push(setPayShip[2]?.result?.payment);
 		}
 
 		// if (data.status == 204) {
@@ -238,14 +229,14 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 						className="relative pt-3 xl:pt-6"
 					/>
 					<div className="flex w-full">
-						{payForm ? parse(payForm) : <Button
+						<Button
 							type="submit"
 							loading={isLoading}
 							className="w-full sm:w-auto"
 							disabled={isLoading}
 						>
 							Оформить заказ
-						</Button>}
+						</Button>
 					</div>
 				</div>
 			</form>

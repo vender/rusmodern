@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { confirmOrder } from '#/lib';
 
-export async function GET(req: NextRequest): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
 
   try {
     const result = await confirmOrder();
