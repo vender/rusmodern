@@ -85,11 +85,9 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 		
 		const setPayShip = await Promise.all([setPaymentMethod(input.payment_method, input.note), setShippingMethod(input.shipping_method), confirmOrder()]) as any;
 
-		console.log(setPayShip);
-
-		// if(!setPayShip?.reason) {
-		// 	router.push(setPayShip[2]?.result?.payment);
-		// }
+		if(!setPayShip?.reason) {
+			router.push(setPayShip[2]?.result?.payment);
+		}
 
 		// if (data.status == 204) {
 		// 	setIsLoading(false);
