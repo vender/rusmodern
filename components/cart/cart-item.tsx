@@ -37,7 +37,11 @@ export default function CartItem({ item }: { item: any }) {
 		>
 			<div className="relative flex w-24 md:w-28 h-24 md:h-28 rounded-md overflow-hidden bg-gray-200 flex-shrink-0 cursor-pointer me-4">
 				<Image
-					src={`${process.env.NEXT_PUBLIC_OPENCART_DOMAIN_URL}/image/${item.image}`}
+					src={
+						item.image
+						? `${process.env.NEXT_PUBLIC_OPENCART_DOMAIN_URL}/image/${item.image}`
+						: "/assets/placeholder/products/product-gallery.svg"
+					}
 					width={112}
 					height={112}
 					loading="eager"

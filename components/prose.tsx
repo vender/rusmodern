@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import parse from "html-react-parser";
 import type { FunctionComponent } from "react";
 

@@ -33,8 +33,6 @@ export default async function CheckoutPage() {
 
   const paymentMethods = await getPaymentMethods();
   const shipingMethods = await getShippingMethods();
-//   const confirm = await confirmOrder();
-	// console.log(confirm);
 	
   if (sessionId) {
     cart = await getCart();

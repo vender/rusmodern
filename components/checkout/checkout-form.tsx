@@ -44,7 +44,7 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 	const [isLoading, setIsLoading] = useState(false);
 	const [value, setValue] = useState(address && address[0]?.address_1) as any;
 	
-	const setPaymentMethod = async (code:string, comment:string) => {		
+	const setPaymentMethod:any = async (code:string, comment:string) => {		
 		const response = await fetch(`/api/checkout/set-payment-method`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -57,7 +57,7 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 		return data;
 	}
 	
-	const setShippingMethod = async (code:string) => {
+	const setShippingMethod:any = async (code:string) => {
 		const response = await fetch(`/api/checkout/set-shipping-method`, {
 			method: 'POST',
 			body: JSON.stringify({
@@ -82,12 +82,14 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 
 	async function onSubmit(input: CheckoutInputType) {
 		setIsLoading(true);
-
+		
 		const setPayShip = await Promise.all([setPaymentMethod(input.payment_method, input.note), setShippingMethod(input.shipping_method), confirmOrder()]) as any;
 
-		if(!setPayShip?.reason) {
-			router.push(setPayShip[2]?.result?.payment);
-		}
+		console.log(setPayShip);
+
+		// if(!setPayShip?.reason) {
+		// 	router.push(setPayShip[2]?.result?.payment);
+		// }
 
 		// if (data.status == 204) {
 		// 	setIsLoading(false);
@@ -185,19 +187,21 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 						Способ доставки
 					</h3>
 
-					{shipingMethods && shipingMethods.map((shipping:any, idx:number)=>
-						<RadioBox 
-							key={shipping?.code} 
-							labelKey={shipping.title}
-							{...register("shipping_method", {
-								required: "Выберите способ доставки",
-							})}
-							value={shipping?.code}
-							// defaultChecked={idx == 0 ? true : false}
-							data-shipcode={shipping?.code}
-							// onChange={(e:any) => setShippingMethod(e.target?.dataset.shipcode)}
-							// onClick={(e:any) => setShippingMethod(e.target?.dataset.shipcode)}
-						/>
+					{shipingMethods && shipingMethods.map((Method:any, idx:number) =>
+						Method?.quote && Method?.quote.map((shipping:any) =>
+								<RadioBox 
+									key={shipping?.code}
+									labelKey={`${shipping.title} - ${shipping.text}`}
+									{...register("shipping_method", {
+										required: "Выберите способ доставки",
+									})}
+									value={shipping?.code}
+									// defaultChecked={idx == 0 ? true : false}
+									data-shipcode={shipping?.code}
+									description={shipping.description}
+									// onChange={(e:any) => setShippingMethod(e.target?.dataset.shipcode)}
+								/>
+						)
 					)}
 					{errors.shipping_method && <p className="my-2 text-xs text-red-500">{errors.shipping_method?.message}</p>}
 
@@ -216,6 +220,7 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 							value={payment?.code}
 							// defaultChecked={idx == 0 ? true : false}
 							data-paycode={payment?.code}
+							description=''
 							// onChange={(e:any) => setPaymentMethod(e.target?.dataset.paycode, '')}
 							// onClick={}
 						/>

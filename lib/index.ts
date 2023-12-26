@@ -483,8 +483,6 @@ export async function getOrder(id:number) {
   return data?.order
 }
 
-
-
 export async function getBestsellerProducts() {
   const data = await fetchAPI(`
     {
@@ -789,14 +787,21 @@ export async function getShippingMethods() {
   const data = await fetchAPI(` 
   {
     shippingMethods {
-      title
       code
-      text
+      title
+      quote {
+        code
+        title
+        cost
+        text
+        details
+        description
+      }
       sort_order
       error
     }
   }
-  `);
+  `, 'no-store');
   return data?.shippingMethods
 }
 
@@ -804,14 +809,21 @@ export async function getPaymentMethods() {
   const data = await fetchAPI(` 
   {
     paymentMethods {
-      title
       code
+      title
+      quote {
+        code
+        title
+        cost
+        text
+        details
+        description
+      }
       sort_order
-      details
       error
     }
   }
-  `);
+  `, 'no-store');
   return data?.paymentMethods
 }
 

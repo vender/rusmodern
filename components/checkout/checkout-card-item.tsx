@@ -6,7 +6,11 @@ export default function CheckoutItem({item}:any) {
 		<div className="flex py-4 items-center lg:px-3 border-b border-gray-300">
 			<div className="flex border rounded-md border-gray-300 w-16 h-16 flex-shrink-0">
 				<Image
-					src={`${process.env.NEXT_PUBLIC_OPENCART_DOMAIN_URL}/image/${item.image}`}
+					src={
+						item.image
+						? `${process.env.NEXT_PUBLIC_OPENCART_DOMAIN_URL}/image/${item.image}`
+						: "/assets/placeholder/products/product-gallery.svg"
+					}
 					width={100}
 					height={100}
 					loading="eager"
