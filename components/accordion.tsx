@@ -27,7 +27,8 @@ export function Collapse({
 	variant = "gray",
 }: CollapseProps) {
 	const isOpen = i === expanded;
-
+	console.log(content);
+	
 	return (
 		<div
 			className={clsx({
@@ -82,7 +83,7 @@ export function Collapse({
 						>
 							{content && typeof content == 'object' ?
 								<Attriblist content={content} /> :
-								<Prose className="overflow-hidden" html={content} />
+								(content && <Prose className="overflow-hidden" html={content} />)
 							}
 						</div>
 					</motion.div>
