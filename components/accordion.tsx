@@ -27,7 +27,6 @@ export function Collapse({
 	variant = "gray",
 }: CollapseProps) {
 	const isOpen = i === expanded;
-	console.log(content);
 	
 	return (
 		<div

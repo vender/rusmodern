@@ -104,10 +104,16 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 	async function onSubmit(input: CheckoutInputType) {
 		setIsLoading(true);
 		
-		const setPayShip = await Promise.all([setPaymentMethod(input.payment_method, input.note), setShippingMethod(input.shipping_method), confirmOrder()]) as any;
+		const setPayShip = await Promise.all([setPaymentMethod(input.payment_method, input.note), setShippingMethod(input.shipping_method)]) as any;
 
 		if(!setPayShip?.reason) {
-			router.push(setPayShip[2]?.result?.payment);
+			const confirm:any = await confirmOrder();
+			
+			if(confirm?.result?.payment) {
+				router.push(confirm?.result?.payment);
+			} else {
+				alert('Ошибка оформления заказа. Попробуйте позже.')
+			}
 		}
 
 		// if (data.status == 204) {
