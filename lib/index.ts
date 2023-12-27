@@ -876,3 +876,85 @@ export async function setShippingMethod(code:string, comment:string = '') {
   
   return data.setPaymentMethod
 }
+
+export async function register(params:any) {
+  const {firstname, lastname, email, password, address, postcode, city} = params;
+  
+  const data = await fetchAPI(`
+    mutation {
+      register(
+        input: {
+          customer_group_id: 1
+          firstname: "${firstname}"
+          lastname: "${lastname}"
+          email: "${email}"
+          telephone: "000"
+          address_1: "${address}"
+          address_2: ""
+          country_id: 176
+          zone_id: 0
+          city: "${city}"
+          password: "${password}"
+          confirm: "${password}"
+          agree: true
+          fax: ""
+          company: ""
+          postcode: "${postcode}"
+        }
+      )
+    }
+  `, 'no-store',);
+  
+  return data
+}
+
+export async function addAddress(params:any) {
+  const {firstname, lastname, address_1, city} = params;
+  
+  const data = await fetchAPI(`
+    mutation {
+      addAddress(
+        input: {
+          firstname: "${firstname}"
+          lastname: "${lastname}"
+          company: ""
+          address_1: "${address_1}"
+          address_2: ""
+          postcode: ""
+          city: "${city}"
+          custom_field: ""
+          zone_id: 0
+          country_id: 176
+        }
+      )
+    }
+  `, 'no-store',);
+  
+  return data.addAddress
+}
+
+export async function editAddress(params:any) {
+  const {firstname, lastname, address_1, city, address_id} = params;
+  
+  const data = await fetchAPI(`
+    mutation {
+      editAddress(
+        address_id: "${address_id}"
+        input: {
+          firstname: "${firstname}"
+          lastname: "${lastname}"
+          company: ""
+          address_1: "${address_1}"
+          address_2: ""
+          postcode: ""
+          city: "${city}"
+          custom_field: ""
+          country_id: 176
+          zone_id: 0
+        }
+      )
+    }
+  `, 'no-store',);
+  
+  return data.editAddress
+}

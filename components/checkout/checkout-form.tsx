@@ -2,11 +2,10 @@
 import Input from "#/components/ui/input";
 import { Controller, useForm } from "react-hook-form";
 import TextArea from "#/components/ui/text-area";
-// import CheckBox from "#/components/ui/checkbox";
 import Button from "#/components/ui/button";
 import { AddressSuggestions } from 'react-dadata';
 import 'react-dadata/dist/react-dadata.css';
-import { useId, useState, startTransition } from "react";
+import { useId, useState } from "react";
 import { RadioBox } from "../ui/radiobox";
 import { useRouter } from "next/navigation";
 
@@ -16,33 +15,57 @@ interface CheckoutInputType {
 	phone: string;
 	email: string;
 	address: string;
-	// city: string;
-	// zipCode: string;
 	save: boolean;
 	note: string;
 	payment_method: string;
 	shipping_method: string;
 }
 
-interface sendConfirmOrder {
-	result: {
-		payment: string;
-	};
-	status: number;
-}
+// interface sendConfirmOrder {
+// 	result: {
+// 		payment: string;
+// 	};
+// 	status: number;
+// }
 
-export default function CheckoutForm({ address, userInfo, paymentMethods, shipingMethods }: any) {
+export default function CheckoutForm({ address, userInfo, paymentMethods, shipingMethods }: any) {	
+	const id = useId();
+	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
+	const [value, setValue] = useState(address[0]?.address_1 ? address[0]?.address_1 : '') as any;
+
 	const {
 		register,
 		control,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<CheckoutInputType>();
+	} = useForm<CheckoutInputType>({
+		defaultValues: {
+		  address: value
+		},
+	});
 	
-	const id = useId();
-	// const router = useRouter();
-	const [isLoading, setIsLoading] = useState(false);
-	const [value, setValue] = useState(address && address[0]?.address_1) as any;
+	const editAddress = async (params:any) => {
+		if(params?.value && params.data) {
+			userInfo.address_1 = params?.value;
+			setValue(params.value);
+			const response = await fetch(`/api/user/editAddress`, {
+				method: 'POST',
+				body: JSON.stringify({
+					firstname: userInfo.firstname,
+					lastname: userInfo.lastname,
+					address_1: params?.value,
+					city: params.data.city,
+					address_id: userInfo.address_id
+				})
+			});
+			const data = await response.json();
+			
+			if(data.result) {
+				router.refresh();
+			}
+		}
+	}
 	
 	const setPaymentMethod:any = async (code:string, comment:string) => {		
 		const response = await fetch(`/api/checkout/set-payment-method`, {
@@ -77,8 +100,6 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 		const data:{status: number} = await response.json();
 		return data;
 	}
-	
-	const router = useRouter();
 
 	async function onSubmit(input: CheckoutInputType) {
 		setIsLoading(true);
@@ -93,7 +114,6 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 		// 	setIsLoading(false);
 		// 	return;
 		// }
-		// console.log(input);
 	}
 
 	return (
@@ -162,11 +182,12 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 
 					<label htmlFor="address" className="block text-gray-600 font-semibold text-sm leading-none mb-3 cursor-pointer">Адрес доставки</label>
 					<Controller
-						name="address"
 						control={control}
-						// rules={{ required: "Введите адрес" }}
+						{...register("address", {
+							required: "Введите адрес",
+						})}
 						render={({ field }) =>
-							<AddressSuggestions token="2cd34967db3481dfbeb3c3bffa23072f5fbedcfe" defaultQuery={value} uid={id} onChange={setValue}
+							<AddressSuggestions token="2cd34967db3481dfbeb3c3bffa23072f5fbedcfe" defaultQuery={value} uid={id} onChange={editAddress}
 								inputProps={
 									{
 										className: 'py-2 px-4 md:px-5 w-full appearance-none transition duration-150 ease-in-out border text-input text-xs lg:text-sm font-body rounded-md placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:outline-none focus:border-heading h-11 md:h-12',
@@ -176,10 +197,6 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 							/>}
 					/>
 					{errors.address && <p className="my-2 text-xs text-red-500">{errors.address?.message}</p>}
-
-					{/* <div className="relative flex items-center ">
-						<CheckBox name="Сохранить информацию" />
-					</div> */}
 
 					<h3 className="text-lg md:text-xl xl:text-xl font-bold text-heading mb-6 xl:mb-8">
 						Способ доставки

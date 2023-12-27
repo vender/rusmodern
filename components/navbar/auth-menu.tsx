@@ -5,13 +5,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 const LoginForm:any = dynamic(() => import("#/components/auth/login-form"));
 
-// interface Props {
-//   href: string;
-//   className?: string;
-//   btnProps: React.ButtonHTMLAttributes<any>;
-//   isAuthorized: boolean;
-// }
-
 export default function AuthMenu({
   isAuthorized,
   className,

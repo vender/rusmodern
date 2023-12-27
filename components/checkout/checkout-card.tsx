@@ -10,7 +10,7 @@ export default function Checkoutcard({cart}:any) {
 			</h2>
 
 			{cart ? (
-				cart.items.map((item:any) => <CheckoutItem item={item} key={item.id} />)
+				cart.items.map((item:any) => <CheckoutItem item={item} key={item.product_id} />)
 			) : (
 				<p className="text-red-500 lg:px-3 py-4">{"text-empty-cart"}</p>
 			)}

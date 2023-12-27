@@ -1,3 +1,4 @@
+"use client"
 import Input from "#/components/ui/input";
 import PasswordInput from "#/components/ui/password-input";
 import Button from "#/components/ui/button";
@@ -50,8 +51,8 @@ const LoginForm: React.FC = ({setOpenModal}:any) => {
 		});
 	}
 	function handleSignUp() {
-		// setModalView("SIGN_UP_VIEW");
-		// return openModal();
+		setOpenModal(false);
+		router.push('/signup')
 	}
 	function handleForgetPassword() {
 		// setModalView("FORGET_PASSWORD");

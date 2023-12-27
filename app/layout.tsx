@@ -4,7 +4,7 @@ import Navbar from '#/components/navbar';
 import Footer from '#/components/footer/footer';
 import MobileNavigation from "#/components/navbar/mobile-navigation";
 import { Toaster } from 'react-hot-toast';
-import { getCategories, getInformations, loggedIn } from '#/lib'
+import { getCategories, getInformations, loggedIn } from '#/lib';
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic-ext'],

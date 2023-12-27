@@ -1,12 +1,12 @@
 // import Link from "@components/ui/link";
 // import Layout from "#/components/layout/layout";
-import AccountLayout from "#/components/account/account-layout";
+// import AccountLayout from "#/components/account/account-layout";
 import Link from "next/link";
 
 export default function index(props:any) {
 	
 	return (
-		<AccountLayout>
+		<>
 			<h2 className="text-lg md:text-xl xl:text-2xl font-bold text-heading mb-3 xl:mb-5">
 				text-dashboard
 			</h2>
@@ -35,6 +35,6 @@ export default function index(props:any) {
 				.
 			</p>
 			<>{props.orders}</>
-		</AccountLayout>
+		</>
 	)
 }

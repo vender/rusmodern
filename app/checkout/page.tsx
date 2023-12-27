@@ -1,9 +1,10 @@
 import Container from "#/components/ui/container";
 import { cookies } from "next/headers";
-import { getCart, getAddresses, loggedIn, getShippingMethods, getPaymentMethods, confirmOrder } from "#/lib";
+import { getCart, getAddresses, loggedIn, getShippingMethods, getPaymentMethods } from "#/lib";
 import CheckoutForm from "#/components/checkout/checkout-form";
 import CheckoutCard from "#/components/checkout/checkout-card";
 import Empty from "#/components/checkout/empty";
+import SignUpForm from "#/components/auth/sign-up-form";
 
 // const decodeAddres = async (addres:string) => {
 // 	const url = "https://cleaner.dadata.ru/api/v1/clean/address";
@@ -43,13 +44,13 @@ export default async function CheckoutPage() {
 	// 	address = await decodeAddres(query);
 	// }
   }
-
+  
   return (
     <Container>
 		{cart?.items?.length > 0 ? 
 			<div className="pb-14 py-28 px-0 2xl:max-w-screen-2xl xl:max-w-screen-xl mx-auto flex flex-col md:flex-row w-full">
 				<div className="md:w-full lg:w-3/5 flex  h-full flex-col -mt-1.5">
-					<CheckoutForm address={userAddress} userInfo={userInfo} paymentMethods={paymentMethods} shipingMethods={shipingMethods} />
+					{userInfo ? <CheckoutForm address={userAddress} userInfo={userInfo} paymentMethods={paymentMethods} shipingMethods={shipingMethods} /> : <SignUpForm className="w-full" addressShow={true} />}
 				</div>
 				<div className="md:w-full lg:w-2/5 md:ms-7 lg:ms-10 xl:ms-14 flex flex-col h-full -mt-1.5">
 					<CheckoutCard cart={cart} />
