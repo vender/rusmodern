@@ -1,4 +1,4 @@
-import { getProduct } from '#/lib'
+import { getProduct } from '#/lib';
 import Container from "#/components/ui/container";
 import ProductSingleDetails from "#/components/product/product-single-details";
 // import RelatedProducts from "@containers/related-products";
@@ -12,7 +12,7 @@ type Props = {
 export async function generateMetadata(
 	{ params }: Props,) {
     const product = await getProduct(params.product_id);
-   
+    
 	return {
 	  title: product.name,
 	  openGraph: {

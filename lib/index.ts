@@ -958,3 +958,16 @@ export async function editAddress(params:any) {
   
   return data.editAddress
 }
+
+export async function addReview(name:string, rating:string, text:string, product_id:string) {
+  const data = await fetchAPI(` 
+    mutation {
+      addReview(
+        product_id: "${product_id}"
+        input: { name: "${name}", rating: ${rating}, text: "${text}" }
+      )
+    }
+  `, 'no-store',);
+  
+  return data.addReview
+}

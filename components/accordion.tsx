@@ -8,6 +8,7 @@ import Attriblist from "#/components/ui/attrib-list";
 type CollapseProps = {
 	i: number;
 	titleKey?: string;
+	type?: string;
 	title?: string;
 	content?: any;
 	contentKey?: any;
@@ -19,6 +20,7 @@ type CollapseProps = {
 export function Collapse({
 	i,
 	expanded,
+	type,
 	setExpanded,
 	titleKey,
 	title,
@@ -80,9 +82,9 @@ export function Collapse({
 									variant === "gray",
 							})}
 						>
-							{content && typeof content == 'object' ?
+							{content && type == 'attrib' ?
 								<Attriblist content={content} /> :
-								(content && <Prose className="overflow-hidden" html={content} />)
+								(content && type == 'description' ? <Prose className="overflow-hidden" html={content} /> : content)
 							}
 						</div>
 					</motion.div>

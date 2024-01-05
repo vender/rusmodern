@@ -1,4 +1,5 @@
 import Counter from "#/components/product/counter";
+import { loggedIn } from '#/lib'
 // import { useRouter } from "next/router";
 // import ProductAttributes from "#/components/product/product-attributes";
 import ProductMetaReview from "#/components/product/product-meta-review";
@@ -23,7 +24,8 @@ interface Product {
 	}
 }
 
-export default function ProductSingleDetails({ product }: Product) {
+export default async function ProductSingleDetails({ product }: Product) {
+	const isLogedIn = await loggedIn();
 
 	const productData = [
 		{
@@ -35,6 +37,11 @@ export default function ProductSingleDetails({ product }: Product) {
 			title: 'Характеристики',
 			type: 'attrib',
 			content: product.attributes
+		},
+		{
+			title: 'Отзывы',
+			type: 'review',
+			product_id: product.product_id
 		}
 	]
 
@@ -115,27 +122,13 @@ export default function ProductSingleDetails({ product }: Product) {
 					</div>
 				</div>
 
-				{/* <div className="pb-3 border-b border-gray-300">
-					{Object.keys(variations).map((variation) => {
-						return (
-							<ProductAttributes
-								key={variation}
-								title={variation}
-								attributes={variations[variation]}
-								active={attributes[variation]}
-								onClick={handleAttribute}
-							/>
-						);
-					})}
-				</div> */}
-
 				<div className="flex items-center gap-x-4 ltr:md:pr-32 rtl:md:pl-32 ltr:lg:pr-12 rtl:lg:pl-12 ltr:2xl:pr-32 rtl:2xl:pl-32 ltr:3xl:pr-48 rtl:3xl:pl-48 py-8">
 					<Counter
 						item={product}
 					/>
 				</div>
 
-				<ProductMetaReview data={productData} />
+				<ProductMetaReview data={productData} isLogedIn={isLogedIn} />
 			</div>
 		</div>
 	)

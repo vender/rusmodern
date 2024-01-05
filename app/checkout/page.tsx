@@ -6,25 +6,6 @@ import CheckoutCard from "#/components/checkout/checkout-card";
 import Empty from "#/components/checkout/empty";
 import SignUpForm from "#/components/auth/sign-up-form";
 
-// const decodeAddres = async (addres:string) => {
-// 	const url = "https://cleaner.dadata.ru/api/v1/clean/address";
-// 	const token = "2cd34967db3481dfbeb3c3bffa23072f5fbedcfe";
-// 	const secret = "150e2a153b86bc86f0e95dd232edf8431f74ce98";
-
-// 	var options = {
-// 		method: "POST",
-// 		// mode: "cors",
-// 		headers: {
-// 			"Content-Type": "application/json",
-// 			"Authorization": "Token " + token,
-// 			"X-Secret": secret
-// 		},
-// 		body: JSON.stringify([addres])
-// 	}
-// 	const resp = await fetch(url, options)
-// 	return resp.json();
-// }
-
 export default async function CheckoutPage() {
   let sessionId = cookies().get("x-session-id")?.value;
   let cart: any,
@@ -39,10 +20,6 @@ export default async function CheckoutPage() {
     cart = await getCart();
 	userAddress = await getAddresses();
 	userInfo = await loggedIn();
-	// if(userAddress) {
-	// 	const query = `${userAddress[0]?.city} ${userAddress[0]?.address_1}`
-	// 	address = await decodeAddres(query);
-	// }
   }
   
   return (

@@ -1,13 +1,9 @@
 "use client"
 import { useState } from "react";
 import { Collapse } from "#/components/accordion";
-// import ReviewForm from "#/components/form/review-form";
+import ReviewForm from "#/components/form/review-form";
 
-interface Props {
-	data: any;
-}
-
-const ProductMetaReview: React.FC<Props> = ({ data }) => {
+export default function ProductMetaReview({ data, isLogedIn }:any) {
 	const [expanded, setExpanded] = useState<number>(0);
 	
 	return (
@@ -15,17 +11,10 @@ const ProductMetaReview: React.FC<Props> = ({ data }) => {
 			{data?.map((item: any, index: any) => (
 				<Collapse
 					i={index}
+					type={item.type}
 					key={item.title}
 					title={item.title}
-					content={
-						data?.length === item.id ? (
-							<>
-								{/* {item.content} <ReviewForm /> */}
-							</>
-						) : (
-							item.content
-						)
-					}
+					content={item?.type == 'review' ? <ReviewForm isLogedIn={isLogedIn} product_id={item?.product_id} /> : item.content}
 					expanded={expanded}
 					setExpanded={setExpanded}
 					variant="transparent"
@@ -33,6 +22,4 @@ const ProductMetaReview: React.FC<Props> = ({ data }) => {
 			))}
 		</>
 	);
-};
-
-export default ProductMetaReview;
+}

@@ -108,6 +108,7 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 
 		if(!setPayShip?.reason) {
 			const confirm:any = await confirmOrder();
+			console.log(confirm);
 			
 			if(confirm?.result?.payment) {
 				router.push(confirm?.result?.payment);
@@ -115,11 +116,6 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 				alert('Ошибка оформления заказа. Попробуйте позже.')
 			}
 		}
-
-		// if (data.status == 204) {
-		// 	setIsLoading(false);
-		// 	return;
-		// }
 	}
 
 	return (
