@@ -1,7 +1,6 @@
 "use client";
 import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Portal } from "@reach/portal";
 import { IoClose } from "react-icons/io5";
 import { fadeInOut } from "#/components/ui/motion/fade-in-out";
 import { zoomOutIn } from "#/components/ui/motion/zoom-out-in";
@@ -46,7 +45,6 @@ export default function Modal({
   const modalInnerRef = useRef() as DivElementRef;
 
   return (
-    <Portal>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -100,6 +98,5 @@ export default function Modal({
           </motion.div>
         )}
       </AnimatePresence>
-    </Portal>
   );
 }
