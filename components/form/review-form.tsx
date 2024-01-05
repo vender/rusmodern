@@ -2,9 +2,8 @@
 import Button from "#/components/ui/button";
 import { useForm } from "react-hook-form";
 import TextArea from "#/components/ui/text-area";
-import ReactStars from "react-rating-stars-component";
+import Rating from '@mui/material/Rating';
 import { useEffect, useState } from "react";
-
 interface ReviewFormValues {
 	cookie: string;
 	message: string;
@@ -35,12 +34,7 @@ const ReviewForm = ({isLogedIn, product_id}:any) => {
 		}
 	}
 
-	const ratingChanged = (newRating: any) => {
-		setRating(newRating);
-	};
-
 	useEffect(() => {
-		console.log(isSubmitSuccessful);
 		if (isSubmitSuccessful) {
 		  reset({ message: "" })
 		}
@@ -52,17 +46,14 @@ const ReviewForm = ({isLogedIn, product_id}:any) => {
 			className="w-full mx-auto flex flex-col justify-center"
 			noValidate
 		>
-			<div className="flex flex-col space-y-5 md:space-y-6 lg:space-y-7">
+			<div className="flex flex-col space-y-2 md:space-y-6 lg:space-y-7">
 				<div className="pb-1.5">
-					<label className="block text-gray-600 font-semibold text-sm leading-none mb-3 cursor-pointer">
-						Оценка
-					</label>
-					<ReactStars
-						count={5}
-						onChange={ratingChanged}
-						size={30}
-						color="#c6c6c6"
-						activeColor="#202020"
+					<Rating
+						name="simple-controlled"
+						value={rating}
+						onChange={(event, newValue) => {
+							setRating(newValue);
+						}}
 					/>
 				</div>
 				<TextArea
