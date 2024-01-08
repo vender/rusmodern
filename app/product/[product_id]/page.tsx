@@ -1,18 +1,14 @@
-import { getProduct } from '#/lib';
+import { getProduct, relatedProducts } from '#/lib';
 import Container from "#/components/ui/container";
 import ProductSingleDetails from "#/components/product/product-single-details";
-// import RelatedProducts from "@containers/related-products";
+import RelatedProducts from "#/components/product/related-products";
 import Divider from "#/components/ui/divider";
 import Breadcrumb from "#/components/layout/breadcrumb";
 
-type Props = {
-	params: { product_id: number }
-}
-
 export async function generateMetadata(
-	{ params }: Props,) {
+	{ params }: { params: { product_id: number } },) {
     const product = await getProduct(params.product_id);
-    
+
 	return {
 	  title: product.name,
 	  openGraph: {
@@ -24,6 +20,7 @@ export async function generateMetadata(
 
 export default async function ProductPage({ params }: { params: { product_id: number } }) {
     const product = await getProduct(params.product_id);
+    const related = await relatedProducts(params.product_id);
     return (
         <>
             <Divider className="mb-0" />
@@ -32,7 +29,7 @@ export default async function ProductPage({ params }: { params: { product_id: nu
                     <Breadcrumb parent={product.categories[0]} title={false}/>
                 </div>
                 <ProductSingleDetails product={product} />
-                {/* <RelatedProducts sectionHeading="text-related-products" /> */}
+                <RelatedProducts sectionHeading="Рекомендуемые товары" related={related} />
             </Container>
         </>
     )

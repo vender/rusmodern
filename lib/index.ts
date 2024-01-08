@@ -617,6 +617,80 @@ export async function getProduct(id: number) {
   return data?.product
 }
 
+export async function relatedProducts(id: number) {
+  const data = await fetchAPI(`
+    {
+      relatedProducts(id: ${id}) {
+        product_id
+        name
+        description
+        meta_title
+        meta_description
+        meta_keyword
+        tag
+        model
+        sku
+        upc
+        ean
+        jan
+        isbn
+        mpn
+        location
+        quantity
+        stock_status
+        image
+        in_stock
+        price
+        special
+        formatted_price
+        formatted_special
+        reward
+        points
+        tax_class_id
+        date_available
+        weight
+        weight_class_id
+        length
+        width
+        height
+        length_class_id
+        subtract
+        rating
+        review_count
+        minimum
+        sort_order
+        status
+        date_added
+        date_modified
+        viewed
+        wishlist
+        categories {
+          category_id
+          name
+          image
+          top
+          column
+          status
+        }
+        discounts {
+          product_discount_id
+          quantity
+          priority
+          price
+          date_start
+          date_end
+        }
+        images {
+          product_image_id
+          image
+          sort_order
+        }
+      }
+    }
+  `, 'no-store',);
+  return data?.relatedProducts
+}
+
 export async function getInformations() {
   const data = await fetchAPI(`
   {
@@ -970,4 +1044,14 @@ export async function addReview(name:string, rating:string, text:string, product
   `, 'no-store',);
   
   return data.addReview
+}
+
+export async function preorder(name:string, email:string, product_id:number) {
+  const data = await fetchAPI(` 
+    mutation {
+      preorder(name: "${name}", email: "${email}", product_id: ${product_id})
+    }
+  `, 'no-store',);
+  
+  return data.preorder
 }

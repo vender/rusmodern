@@ -1,11 +1,10 @@
 import Counter from "#/components/product/counter";
 import { loggedIn } from '#/lib'
-// import { useRouter } from "next/router";
-// import ProductAttributes from "#/components/product/product-attributes";
 import ProductMetaReview from "#/components/product/product-meta-review";
 import Link from "next/link";
 import ProductGallery from "./productGallery";
 import Image from "next/image";
+import Preorder from "./preorder";
 
 interface Product {
 	product: {
@@ -21,12 +20,13 @@ interface Product {
 		tag: string;
 		attributes: any;
 		images?: any;
+		quantity?: number | any;
 	}
 }
 
 export default async function ProductSingleDetails({ product }: Product) {
 	const isLogedIn = await loggedIn();
-
+	
 	const productData = [
 		{
 			title: 'Описание товара',
@@ -123,9 +123,12 @@ export default async function ProductSingleDetails({ product }: Product) {
 				</div>
 
 				<div className="flex items-center gap-x-4 ltr:md:pr-32 rtl:md:pl-32 ltr:lg:pr-12 rtl:lg:pl-12 ltr:2xl:pr-32 rtl:2xl:pl-32 ltr:3xl:pr-48 rtl:3xl:pl-48 py-8">
-					<Counter
-						item={product}
-					/>
+					{ product?.quantity > 0 ?
+						<Counter
+							item={product}
+						/> : 
+						<Preorder isLogedIn={isLogedIn} product={product} />
+					}
 				</div>
 
 				<ProductMetaReview data={productData} isLogedIn={isLogedIn} />
