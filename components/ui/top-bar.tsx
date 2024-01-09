@@ -6,6 +6,6 @@ export default function SearchTopBar({category}:any) {
 			<Text variant="pageHeading" className="hidden lg:inline-flex pb-1">
 				{category.name}
 			</Text>
-		</div>
+	</div>
   )
 }

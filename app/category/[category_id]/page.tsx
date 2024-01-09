@@ -82,7 +82,6 @@ export default async function Category({ params, searchParams }: any) {
   });
 
   return (
-    <>
       <Container>
         <div className="pt-4 md:pt-8">
           <Breadcrumb parent={category?.parent} title={category.name} />
@@ -108,6 +107,5 @@ export default async function Category({ params, searchParams }: any) {
           </div>
         </div>
       </Container>
-    </>
   );
 }
