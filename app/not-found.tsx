@@ -20,6 +20,7 @@ export default function NotFound() {
             </p>
             <Link
                 href="/"
+                replace
                 className="text-[13px] md:text-sm lg:text-base leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 bg-heading text-white px-4 md:px-6  py-2.5 lg:py-3 hover:text-white hover:bg-gray-600 hover:shadow-cart rounded-lg"
             >
                 <IoHomeSharp />

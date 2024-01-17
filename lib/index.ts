@@ -2,32 +2,38 @@ import { cookies, headers } from "next/headers";
 
 const { NEXT_PUBLIC_OPENCART_DOMAIN_URL, NEXT_PUBLIC_OPENCART_API_TOKEN } = process.env;
 
-async function fetchAPI(query = '', cache: RequestCache = 'default', { variables }: Record<string, any> = {}, headers?: object) {
-  let sesHeaders;
+async function fetchAPI(query = '', cache: RequestCache = 'default', variables:any = {}, file:any = false) {
+  let sesHeaders, body;
+
   const xsessionid = cookies().get("x-session-id")?.value;
+  
   if (xsessionid) {
-    sesHeaders = new Headers([
-      ['Content-Type', 'application/json'],
-      ['x-session-id', xsessionid]
-    ]);
+    sesHeaders = new Headers([['x-session-id', xsessionid]]) as any;
   }
+
+  if (file) {
+    sesHeaders.delete("Content-Type");
+    body = new FormData();
+    body.append("operations", JSON.stringify({ query,variables }));
+    body.append('map', '{"0":["variables.file"]}');
+    body.append("0", file);
+  } else {
+    sesHeaders.append("Content-Type", "application/json");
+    body = JSON.stringify({query,variables,}, null, 2);
+  }
+  
 
   try {
     const res: any = await fetch(`${NEXT_PUBLIC_OPENCART_DOMAIN_URL}/index.php?route=api/graphql/usage&token=${NEXT_PUBLIC_OPENCART_API_TOKEN}`, {
       method: 'POST',
       headers: sesHeaders,
       credentials: 'include',
-      body: JSON.stringify({
-        query,
-        variables,
-      }, null, 2),
+      body,
       cache,
       // next: { revalidate: 60 }
     })
 
     const json = await res.json();
-    
-    
 
     if (json?.errors) {
       return json;
@@ -39,6 +45,22 @@ async function fetchAPI(query = '', cache: RequestCache = 'default', { variables
     throw new Error(e)
   }
 
+}
+
+export async function addReview(product_id:any, text:any, file:any, rating:any, name:any ) {
+  console.log(text);
+  
+  const data = await fetchAPI(` 
+    mutation($file: Upload) {
+      addReview(
+        product_id: "${product_id}"
+        input: { name: "${name}", rating: ${rating}, text: "${text}" }
+        files: $file
+      )
+    }
+  `, 'no-store', '"variables":{"file":null}', file);
+  
+  return data.addReview
 }
 
 export async function createSession() {
@@ -901,6 +923,25 @@ export async function getPaymentMethods() {
   return data?.paymentMethods
 }
 
+export async function reviews(product_id:number) {
+  const data = await fetchAPI(` 
+  {
+    reviews(product_id: "${product_id}", start: 0, limit: 3) {
+      review_id
+      author
+      rating
+      text
+      date_added
+      upload_name
+      filename
+      code
+      file_type
+    }
+  }
+  `);
+  return data?.reviews
+}
+
 export async function confirmOrder() {
   const data = await fetchAPI(`
     mutation {
@@ -1031,19 +1072,6 @@ export async function editAddress(params:any) {
   `, 'no-store',);
   
   return data.editAddress
-}
-
-export async function addReview(name:string, rating:string, text:string, product_id:string) {
-  const data = await fetchAPI(` 
-    mutation {
-      addReview(
-        product_id: "${product_id}"
-        input: { name: "${name}", rating: ${rating}, text: "${text}" }
-      )
-    }
-  `, 'no-store',);
-  
-  return data.addReview
 }
 
 export async function preorder(name:string, email:string, product_id:number) {

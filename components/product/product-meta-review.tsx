@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Collapse } from "#/components/accordion";
 import ReviewForm from "#/components/form/review-form";
 
-export default function ProductMetaReview({ data, isLogedIn }:any) {
+export default function ProductMetaReview({ data, isLogedIn, prodReviews }:any) {
 	const [expanded, setExpanded] = useState<number>(0);
 	
 	return (
@@ -14,7 +14,7 @@ export default function ProductMetaReview({ data, isLogedIn }:any) {
 					type={item.type}
 					key={item.title}
 					title={item.title}
-					content={item?.type == 'review' ? <ReviewForm isLogedIn={isLogedIn} product_id={item?.product_id} /> : item.content}
+					content={item?.type == 'review' ? <ReviewForm isLogedIn={isLogedIn} product_id={item?.product_id} prodReviews={prodReviews} /> : item.content}
 					expanded={expanded}
 					setExpanded={setExpanded}
 					variant="transparent"

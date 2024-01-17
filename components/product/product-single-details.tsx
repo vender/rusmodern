@@ -1,5 +1,5 @@
 import Counter from "#/components/product/counter";
-import { loggedIn } from '#/lib'
+import { loggedIn, reviews } from '#/lib'
 import ProductMetaReview from "#/components/product/product-meta-review";
 import Link from "next/link";
 import ProductGallery from "./productGallery";
@@ -26,6 +26,7 @@ interface Product {
 
 export default async function ProductSingleDetails({ product }: Product) {
 	const isLogedIn = await loggedIn();
+	const prodReviews = await reviews(product.product_id);
 	
 	const productData = [
 		{
@@ -131,7 +132,7 @@ export default async function ProductSingleDetails({ product }: Product) {
 					}
 				</div>
 
-				<ProductMetaReview data={productData} isLogedIn={isLogedIn} />
+				<ProductMetaReview data={productData} isLogedIn={isLogedIn} prodReviews={prodReviews} />
 			</div>
 		</div>
 	)
