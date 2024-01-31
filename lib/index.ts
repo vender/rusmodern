@@ -722,6 +722,25 @@ export async function getInformations() {
   return data?.informations
 }
 
+export async function getLocations() {
+  const data = await fetchAPI(`
+  {
+    locations {
+      location_id
+      name
+      address
+      telephone
+      fax
+      geocode
+      image
+      open
+      comment
+    }
+  }
+  `);
+  return data?.locations
+}
+
 export async function getInformationPage(id: number) {
   const data = await fetchAPI(`
     {
