@@ -2,9 +2,12 @@
 import { useState } from "react";
 import { Collapse } from "#/components/accordion";
 import ReviewForm from "#/components/form/review-form";
+import { useSearchParams } from 'next/navigation'
 
 export default function ProductMetaReview({ data, isLogedIn, prodReviews }:any) {
-	const [expanded, setExpanded] = useState<number>(0);
+	const searchParams = useSearchParams();
+	const open = searchParams.get('open')
+	const [expanded, setExpanded] = useState<number>(open == 'review' ? 2 : 0);
 	
 	return (
 		<>

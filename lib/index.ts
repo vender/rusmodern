@@ -370,7 +370,6 @@ export async function getOrders(start: number, limit:number) {
       lastname
       email
       telephone
-      custom_field
       payment_firstname
       payment_lastname
       payment_company
@@ -378,7 +377,6 @@ export async function getOrders(start: number, limit:number) {
       payment_address_2
       payment_postcode
       payment_city
-      payment_custom_field
       payment_method
       payment_code
       shipping_firstname
@@ -388,7 +386,6 @@ export async function getOrders(start: number, limit:number) {
       shipping_address_2
       shipping_postcode
       shipping_city
-      shipping_custom_field
       shipping_method
       comment
       total
@@ -715,6 +712,7 @@ export async function getInformations() {
   {
     informations {
       information_id
+      top_menu
       bottom
       status
       title

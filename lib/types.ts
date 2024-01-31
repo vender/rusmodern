@@ -16,6 +16,7 @@ export type Product = {
   special: string;
   formatted_price: string;
   formatted_special: string;
+  quantity: number;
 };
 
 export type Image = {
@@ -55,7 +56,7 @@ export type SEO = {
 export type OrderItem = {
   price: number;
   quantity: number;
-  id: number;
+  product_id: number;
   name: string;
   total: number;
 }

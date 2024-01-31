@@ -1,6 +1,4 @@
 import ProductCard from "#/components/product/product-card";
-// import ProductFeedLoader from "@components/ui/loaders/product-feed-loader";
-
 interface ProductGridProps {
   className?: string;
   products: any;
@@ -12,7 +10,6 @@ export default function ProductGrid({
   products,
   filterdProd,
 }: ProductGridProps) {
-  const isLoading = false;
 
   if (filterdProd.length) {
     products = products.filter((product: any) =>
@@ -24,8 +21,8 @@ export default function ProductGrid({
     <div
       className={`grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-3 lg:gap-x-5 xl:gap-x-7 gap-y-3 xl:gap-y-5 2xl:gap-y-8 ${className}`}
     >
-      {isLoading && !products?.length ? (
-        <></>
+      {!products?.length ? (
+        null
       ) : (
         // <ProductFeedLoader limit={20} uniqueKey="search-product" />
         products?.map((product: any) => {

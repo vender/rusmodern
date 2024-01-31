@@ -1,9 +1,5 @@
-import {
-	IoLogoInstagram,
-	IoLogoTwitter,
-	IoLogoFacebook,
-	IoLogoYoutube,
-} from "react-icons/io5";
+import { IoLogoVk } from "react-icons/io5";
+import { FaTelegramPlane } from "react-icons/fa";
 
 export const footer = {
 	widgets: [
@@ -13,78 +9,56 @@ export const footer = {
 			lists: [
 				{
 					id: 1,
-					title: "link-instagram",
-					path: "/#",
-					icon: <IoLogoInstagram />,
+					title: "Телеграм",
+					path: "https://t.me/ilmonteshop",
+					icon: <FaTelegramPlane />,
 				},
 				{
 					id: 2,
-					title: "link-twitter",
-					path: "/#",
-					icon: <IoLogoTwitter />,
-				},
-				{
-					id: 3,
-					title: "link-facebook",
-					path: "/#",
-					icon: <IoLogoFacebook />,
-				},
-				{
-					id: 4,
-					title: "link-youtube",
-					path: "/#",
-					icon: <IoLogoYoutube />,
-				},
+					title: "Вконтакте",
+					path: "https://vk.com/ilmonteshop",
+					icon: <IoLogoVk />,
+				}
 			],
 		},
-		{
-			id: 2,
-			widgetTitle: "Контакты",
-			lists: [
-				{
-					id: 1,
-					title: "link-contact-us",
-					path: "/contact-us",
-				},
-				{
-					id: 2,
-					title: "link-email",
-					path: "/",
-				},
-				{
-					id: 3,
-					title: "link-email-two",
-					path: "/",
-				},
-				{
-					id: 4,
-					title: "link-phone",
-					path: "/",
-				},
-			],
-		},
+		// {
+		// 	id: 2,
+		// 	widgetTitle: "Контакты",
+		// 	lists: [
+		// 		{
+		// 			id: 1,
+		// 			title: "link-contact-us",
+		// 			path: "/contact-us",
+		// 		},
+		// 		{
+		// 			id: 2,
+		// 			title: "link-email",
+		// 			path: "/",
+		// 		},
+		// 		{
+		// 			id: 3,
+		// 			title: "link-email-two",
+		// 			path: "/",
+		// 		},
+		// 		{
+		// 			id: 4,
+		// 			title: "link-phone",
+		// 			path: "/",
+		// 		},
+		// 	],
+		// },
 		{
 			id: 3,
 			widgetTitle: "О нас",
 			lists: [
 				{
-					id: 1,
-					title: "link-support-center",
-					path: "/contact-us",
-				},
-				{
-					id: 2,
-					title: "link-customer-support",
-					path: "/",
-				},
-				{
 					id: 3,
-					title: "link-about-us",
+					title: "Связаться с нами",
 					path: "/contact-us",
 				},
 				{
 					id: 4,
-					title: "link-copyright",
+					title: "Лицензии",
 					path: "/",
 				},
 			],
@@ -95,45 +69,14 @@ export const footer = {
 			lists: [
 				{
 					id: 1,
-					title: "link-faq",
+					title: "Частые вопросы",
 					path: "/faq",
 				},
 				{
 					id: 2,
-					title: "link-shipping",
-					path: "/",
-				},
-				{
-					id: 3,
-					title: "link-exchanges",
-					path: "/",
-				},
-			],
-		},
-		{
-			id: 5,
-			widgetTitle: "Информация",
-			lists: [
-				{
-					id: 1,
-					title: "link-privacy",
-					path: "/privacy",
-				},
-				{
-					id: 2,
-					title: "link-terms",
-					path: "/terms",
-				},
-				{
-					id: 3,
-					title: "link-return-policy",
-					path: "/privacy",
-				},
-				{
-					id: 4,
-					title: "link-site-map",
-					path: "/",
-				},
+					title: "Сервисные центры",
+					path: "/servises",
+				}
 			],
 		},
 		{
@@ -142,23 +85,23 @@ export const footer = {
 			lists: [
 				{
 					id: 1,
-					title: "link-men-wear",
-					path: "/search",
+					title: "Ozon",
+					path: "https://www.ozon.ru/brand/il-monte-85285187",
 				},
 				{
 					id: 2,
-					title: "link-men-wear",
-					path: "/search",
+					title: "Wildberries",
+					path: "https://www.wildberries.ru/brands/il-monte",
 				},
 				{
 					id: 3,
-					title: "link-kids-wear",
-					path: "/search",
+					title: "DNS",
+					path: "https://www.dns-shop.ru/product/87dc97309aef1804/elektriceskij-duhovoj-skaf-il-monte-bo-70-an-rustico-belyj",
 				},
 				{
 					id: 4,
-					title: "link-sports-wear",
-					path: "/search",
+					title: "Мвидео",
+					path: "https://www.mvideo.ru/vstraivaemaya-tehnika-4/vstraivaemye-paneli-4108/f/category=vstraivaemye-gazovye-paneli-679/brand=il-monte",
 				},
 			],
 		},

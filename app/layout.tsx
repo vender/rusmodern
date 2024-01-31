@@ -46,8 +46,8 @@ export default async function RootLayout({
   const subMenu = await getCategoryPages(categories);
   const isLogedIn = await loggedIn();
 
-  infoPages = infoPages.map((infoPage:any) =>{
-    return infoPage.bottom && {
+  const infoPagesFiltered = infoPages.map((infoPage:any) =>{
+    return infoPage.top_menu && {
       id: infoPage.information_id,
       path: `/info/${infoPage.information_id}`,
       label: infoPage.title,
@@ -59,10 +59,10 @@ export default async function RootLayout({
       {
         id: 0,
         path: "/",
-        label: "Категории",
+        label: "Каталог",
         subMenu: subMenu
       },
-      ...infoPages
+      ...infoPagesFiltered
     ]
   }
 
@@ -73,7 +73,7 @@ export default async function RootLayout({
         <div className='flex flex-col min-h-screen'>
           <Navbar mainMenu={mainMenu} infoPages={infoPages} isLogedIn={isLogedIn} />
           <main className='relative flex-grow'>{children}</main>
-          <Footer />
+          <Footer infoPages={infoPages} />
           <MobileNavigation mainMenu={mainMenu} infoPages={infoPages} isLogedIn={isLogedIn} />
         </div>
         <Toaster />

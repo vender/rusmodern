@@ -1,20 +1,29 @@
 "use client"
 import { OrderItem } from "#/lib/types";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const OrderItemCard = ({ product }: { product: OrderItem }) => {
 	return (
 		<tr
 			className="border-b font-normal border-gray-300 last:border-b-0"
-			key={product.id}
+			key={product.product_id}
 		>
 			<td className="p-4">
 				{product.name} * {product.quantity}
 			</td>
-			<td className="p-4">{product.total} ₽</td>
+			<td className="p-4">
+				{product.total} ₽
+				<Link
+					href={`/product/${product.product_id}?open=review`}
+					className="text-sm leading-4 bg-heading text-white px-4 py-2.5 inline-block rounded-md hover:text-white hover:bg-gray-600 ml-3"
+				>
+					Отзыв
+				</Link>
+			</td>
 		</tr>
 	);
 };
+
 const OrderDetails: React.FC<{ className?: string; order: any }> = ({
 	className = "pt-10 lg:pt-12",
 	order

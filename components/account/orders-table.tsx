@@ -43,7 +43,7 @@ export default function OrdersTable({orders}:any) {
 							</tr>
 						</thead>
 						<tbody className="text-sm lg:text-base">
-							{orders.map((order:any)=>(
+							{orders && orders?.map((order:any)=>(
 								<tr key={order.order_id} className="border-b border-gray-300 last:border-b-0">
 									<td className="px-4 py-5 text-start">
 										<Link
