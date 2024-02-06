@@ -102,19 +102,22 @@ export default async function ProductCard({
 							{product?.name}
 						</h2>
 					{product?.description && product?.quantity != 0 ? (
-						<p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate" title={description}>
-							{description}
-						</p>
+						<>
+							<p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate" title={description}>
+								{description}
+							</p>
+							<div className='font-semibold text-sm sm:text-base mt-1.5 flex flex-wrap gap-x-2 lg:text-lg lg:mt-2.5 text-heading'>
+								<span className="inline-block">{product.special ? product.formatted_special : product.formatted_price}</span>
+								{product.special && (
+									<del className="sm:text-base font-normal text-gray-800">
+										{product.formatted_price}
+									</del>
+								)}
+							</div>
+						</>
 					) : <Preorder isLogedIn={isLogedIn} product={product} />}
 					
-					<div className='font-semibold text-sm sm:text-base mt-1.5 flex flex-wrap gap-x-2 lg:text-lg lg:mt-2.5 text-heading'>
-						<span className="inline-block">{product.special ? product.formatted_special : product.formatted_price}</span>
-						{product.special && (
-							<del className="sm:text-base font-normal text-gray-800">
-								{product.formatted_price}
-							</del>
-						)}
-					</div>
+					
 					<div>
 						
 					</div>

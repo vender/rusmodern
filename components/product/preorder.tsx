@@ -33,8 +33,8 @@ export default function Preorder({isLogedIn, product}:any) {
     }
     
     return (
-        <>
-            <h3>Нет в наличии</h3>
+        <div className='flex gap-x-2 items-center justify-between'>
+            <h3 className='text-xs'>Нет в наличии</h3>
             <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}
@@ -42,11 +42,11 @@ export default function Preorder({isLogedIn, product}:any) {
             >
                 <Button 
                     onClick={() => preorderAdd()} 
-                    className="bg-heading text-white px-2 md:px-2 lg:px-2 py-2 md:py-2 lg:py-2 hover:text-white hover:bg-gray-600 hover:shadow-cart"
+                    className="bg-slate-900 text-white px-2 md:px-2 lg:px-2 py-2 md:py-2 lg:py-2 hover:text-white hover:bg-gray-600 hover:shadow-cart"
                 >
                     {editing ? <LoadingDots className="bg-black dark:bg-white" /> : <GoBell className='text-white' />}
                 </Button>
             </Tooltip>
-        </>
+        </div>
     )
 }

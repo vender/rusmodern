@@ -18,7 +18,7 @@ export default function AuthMenu({
 	}, [openModal]);
 
   return isAuthorized ? (
-    <Link href="/account" {...btnProps} />
+    <Link href="/account/details" {...btnProps} />
   ) : (
     <>
       <button onClick={()=>setOpenModal(true)} className={className}>
