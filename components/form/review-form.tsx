@@ -1,11 +1,14 @@
 "use client"
 import Button from "#/components/ui/button";
+import LoadingDots from '../loading-dots';
 import { useForm } from "react-hook-form";
 import TextArea from "#/components/ui/text-area";
 import Rating from '@mui/material/Rating';
 import Reviewlist from "#/components/product/review-list";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState, startTransition } from "react";
 interface ReviewFormValues {
 	cookie: string;
 	message: string;
@@ -13,7 +16,9 @@ interface ReviewFormValues {
 }
 
 const ReviewForm = ({isLogedIn, product_id, prodReviews}:any) => {
+	const router = useRouter();
 	const [rating, setRating] = useState(0) as any;
+	const [editing, setEditing] = useState(false);
 	const {
 		register,
 		handleSubmit,
@@ -22,21 +27,13 @@ const ReviewForm = ({isLogedIn, product_id, prodReviews}:any) => {
 	} = useForm<ReviewFormValues>();
 	
 	async function onSubmit(values:any) {
+		setEditing(true);
 		const formData = new FormData();
 		formData.append('product_id', product_id);
 		formData.append('text', values.message);
-		// for (const key in values) {
-		// 	if (key === "file") {
-		// 	  formData.append(key, values[key][0]);
-		// 	} else {
-		// 	  formData.append(key, values[key]);
-		// 	}
-		// }
 		formData.append('file', values.file[0]);
 		formData.append('rating', rating);
 		formData.append('name', `${isLogedIn.firstname} ${isLogedIn.lastname}`);
-		// console.log(values.file[0]);
-		
 		
 		const response = await fetch(`/api/addreview`, {
 			method: 'POST',
@@ -46,7 +43,14 @@ const ReviewForm = ({isLogedIn, product_id, prodReviews}:any) => {
 
 		const data:{status:number} = await response.json();
 		if(data?.status == 204) {
-			alert('Спасибо за отызыв.');
+			startTransition(() => {
+				router.refresh();
+				toast.success("Спасибо за отызыв!", {
+					duration: 4000,
+					position:"top-center",
+				});
+				setEditing(false);
+			});
 		}
 	}
 
@@ -93,8 +97,9 @@ const ReviewForm = ({isLogedIn, product_id, prodReviews}:any) => {
 						<Button
 							type="submit"
 							className="h-12 md:mt-1 text-sm lg:text-base w-full sm:w-auto"
+							disabled={editing}
 						>
-							Отправить
+							{editing ? <LoadingDots className="bg-black dark:bg-white" /> : "Отправить" }
 						</Button>
 					</div>
 				</div>

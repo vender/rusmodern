@@ -1,8 +1,10 @@
 import Container from "#/components/ui/container";
 import YamapWrapper from "#/components/ui/yamap";
-import { getLocations } from '#/lib';
+import { getLocations, getInformationPage } from '#/lib';
+import Prose from "#/components/prose";
 
 async function page({ params }: { params: any }) {
+  const pageInfo = await getInformationPage(8);
   const locations = await getLocations();
   
   return (
@@ -11,6 +13,9 @@ async function page({ params }: { params: any }) {
         <h1 className="text-lg md:text-xl xl:text-2xl font-bold text-heading mb-3 xl:mb-5">
           Сервисные центры
         </h1>
+        <div>
+          <Prose className="overflow-hidden" html={pageInfo.description} />
+        </div>
         <div className="py-4">
           <YamapWrapper locations={locations} />
         </div>

@@ -9,7 +9,6 @@ import SignUpForm from "#/components/auth/sign-up-form";
 export default async function CheckoutPage() {
   let sessionId = cookies().get("x-session-id")?.value;
   let cart: any,
-  address : any,
   userAddress: any,
   userInfo: any;
 

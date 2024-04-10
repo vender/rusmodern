@@ -55,11 +55,14 @@ export default async function Category({ params, searchParams }: any) {
   products &&
     products.map((item: any) => {
       item.attributes?.map((i: any) => {
-        i.attribute.map((i: any) => {
-          if (!removeAttrib.find((ra) => i.attribute_id == ra)) {
-            attribute_groups.push([i.attribute_id, i.name]);
-          }
-        });
+        // console.log();
+        if(i.status == 1) {
+          i.attribute.map((i: any) => {
+            if (!removeAttrib.find((ra) => i.attribute_id == ra)) {
+              attribute_groups.push([i.attribute_id, i.name]);
+            }
+          });
+        }
       });
     });
 

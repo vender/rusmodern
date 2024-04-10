@@ -26,12 +26,13 @@ export default async function ProductCard({
 	imgHeight = 440,
 	imgLoading,
 }: ProductProps) {
-	const description = product?.description.replace(/(<([^>]+)>)|(&lt;...|gt;)|&/gi, "");
+	// const description = product?.description.replace(/(<([^>]+)>)|(&lt;...|gt;)|&/gi, "");
 	const placeholderImage = `/assets/placeholder/products/product-${variant}.svg`;
 	const isLogedIn = await loggedIn();
 
 	return (
-		<Link href={`/product/${product.product_id}`}>
+		<Link href={`/product/${product.product_id}`} className="relative">
+			{product.special && <div className="absolute text-center z-10 right-1 top-1 bg-white text-black p-[0.7rem] lg:p-4 w-[40px] lg:w-[55px] h-[40px] lg:h-[55px] rounded-full font-bold text-lg lg:text-2xl leading-none lg:leading-none drop-shadow-[2px_-2px_1px_rgba(0,0,0,0.35)]">%</div>}
 			<div
 				className={clsx(
 					"group box-border overflow-hidden flex rounded-md cursor-pointer",
@@ -101,10 +102,10 @@ export default async function ProductCard({
 						>
 							{product?.name}
 						</h2>
-					{product?.description && product?.quantity != 0 ? (
+					{product?.quantity != 0 ? (
 						<>
-							<p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate" title={description}>
-								{description}
+							<p className="text-body text-xs lg:text-sm leading-normal xl:leading-relaxed max-w-[250px] truncate" title={product?.sku}>
+								артикул: {product?.sku}
 							</p>
 							<div className='font-semibold text-sm sm:text-base mt-1.5 flex flex-wrap gap-x-2 lg:text-lg lg:mt-2.5 text-heading'>
 								<span className="inline-block">{product.special ? product.formatted_special : product.formatted_price}</span>

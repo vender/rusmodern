@@ -4,15 +4,23 @@ import PasswordInput from "#/components/ui/password-input";
 import Button from "#/components/ui/button";
 import { Controller, useForm } from "react-hook-form";
 import { AddressSuggestions } from 'react-dadata';
-import { useRouter } from 'next/navigation';
+import { useRouter, redirect } from 'next/navigation';
 import { useId, useState } from "react";
 import { useCookies } from 'react-cookie';
+
+function jsonCheck(jsonString:any) {
+	try {
+		return JSON.parse(jsonString);
+	} catch (e) {
+		return false;
+	}
+}
 
 export default function SignUpForm({addressShow, className = ''}:{addressShow:boolean, className: string}) {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 	const [, setCookie] = useCookies(['x-session-id']);
-	const [value, setValue] = useState() as any;
+	const [adres, setAdres] = useState() as any;
 
 	const {
 		register,
@@ -23,8 +31,9 @@ export default function SignUpForm({addressShow, className = ''}:{addressShow:bo
 
 	const id = useId();
 
-	const signUp =async (params:any) => {
-		// setIsLoading(true);
+	const signUp = async (params:any) => {
+		
+		setIsLoading(true);
 		
 		const response = await fetch(`/api/user/signup`, {
 			method: 'POST',
@@ -32,36 +41,35 @@ export default function SignUpForm({addressShow, className = ''}:{addressShow:bo
 				firstname: params.firstname,
 				lastname: params.lastname,
 				email: params.email,
-				address: params.address,
+				address: adres.value,
 				password: params.password,
-				city: value.data.city,
-				postcode: value.data.postal_code
+				city: adres?.data?.city,
+				postcode: adres?.data?.postal_code
 			})
 		});
-
 		const data = await response.json();
-
-		if (data?.result?.errors) {
-			alert(data?.result?.errors[0].message);
-			setIsLoading(false);
-			return;
-		}
-		
-		if(data?.result?.register) {
-			console.log(data?.result?.register);
+				
+		if(data?.result?.register && !jsonCheck(data?.result?.register)) {
 			setCookie('x-session-id', data?.result?.register, {
 				path: '/',
 				sameSite: 'strict',
 				secure: process.env.NODE_ENV === 'production'
 			});
-			router.refresh();
-			setIsLoading(false);
+			router.push("/");
 			alert('Вы успешно зарегистрировались');
+		} else {
+			alert(jsonCheck(data?.result?.register)?.error);
 		}
+
+		setIsLoading(false);
 	}
 
 	function onSubmit(input:any) {
-		signUp(input);
+		if(adres !== undefined) {
+			signUp(input);
+		} else {
+			alert("Заполните полный адрес")
+		}
 	}
 	return (
 		<div className={`py-5 px-5 sm:px-8 bg-white mx-auto rounded-lg ${className} border border-gray-300`}>
@@ -116,7 +124,7 @@ export default function SignUpForm({addressShow, className = ''}:{addressShow:bo
 								required: "Введите адрес",
 							})}
 							render={({ field }) =>
-								<AddressSuggestions token="2cd34967db3481dfbeb3c3bffa23072f5fbedcfe" defaultQuery={value} uid={id} onChange={setValue}
+								<AddressSuggestions token="2cd34967db3481dfbeb3c3bffa23072f5fbedcfe" defaultQuery={adres} uid={id} onChange={setAdres}
 									inputProps={
 										{
 											className: 'py-2 px-4 md:px-5 w-full appearance-none transition duration-150 ease-in-out border text-input text-xs lg:text-sm font-body rounded-md placeholder-body min-h-12 transition duration-200 ease-in-out bg-white border-gray-300 focus:outline-none focus:border-heading h-11 md:h-12',
@@ -135,8 +143,14 @@ export default function SignUpForm({addressShow, className = ''}:{addressShow:bo
 						errorKey={errors.password?.message}
 						{...register("password", {
 							required: "Введите пароль",
+							minLength: 4,
+							maxLength: 20
 						})}
 					/>
+					{errors.password && (
+						<span role="alert">В пароле должно быть от 4 до 20 символов</span>
+					)}
+
 					<div className="relative">
 						<Button
 							type="submit"

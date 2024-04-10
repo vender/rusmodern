@@ -21,17 +21,11 @@ interface CheckoutInputType {
 	shipping_method: string;
 }
 
-// interface sendConfirmOrder {
-// 	result: {
-// 		payment: string;
-// 	};
-// 	status: number;
-// }
-
 export default function CheckoutForm({ address, userInfo, paymentMethods, shipingMethods }: any) {	
 	const id = useId();
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
+	const [payShow, setPayShow] = useState(false);
 	const [value, setValue] = useState(address[0]?.address_1 ? address[0]?.address_1 : '') as any;
 
 	const {
@@ -108,13 +102,20 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 
 		if(!setPayShip?.reason) {
 			const confirm:any = await confirmOrder();
-			console.log(confirm);
 			
 			if(confirm?.result?.payment) {
 				router.push(confirm?.result?.payment);
 			} else {
 				alert('Ошибка оформления заказа. Попробуйте позже.')
 			}
+		}
+	}
+
+	function showPay (code:any) {
+		if(code == 'pickup.pickup') {
+			setPayShow(true);
+		} else {
+			setPayShow(false);
 		}
 	}
 
@@ -213,10 +214,10 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 										required: "Выберите способ доставки",
 									})}
 									value={shipping?.code}
-									// defaultChecked={idx == 0 ? true : false}
 									data-shipcode={shipping?.code}
 									description={shipping.description}
-									// onChange={(e:any) => setShippingMethod(e.target?.dataset.shipcode)}
+									onClick={(e) => showPay(shipping?.code)}
+									wrapperCalssName=""
 								/>
 						)
 					)}
@@ -235,11 +236,10 @@ export default function CheckoutForm({ address, userInfo, paymentMethods, shipin
 								required: "Выберите способ оплаты",
 							})}
 							value={payment?.code}
-							// defaultChecked={idx == 0 ? true : false}
 							data-paycode={payment?.code}
 							description=''
-							// onChange={(e:any) => setPaymentMethod(e.target?.dataset.paycode, '')}
-							// onClick={}
+							// wrapperCalssName=""
+							wrapperCalssName={payment?.code == 'cod' && !payShow ? 'hidden' : ''}
 						/>
 					})}
 					{errors.payment_method && <p className="my-2 text-xs text-red-500">{errors.payment_method?.message}</p>}

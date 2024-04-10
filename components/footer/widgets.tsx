@@ -8,8 +8,6 @@ interface WidgetsProps {
 	}[];
 }
 
-import React from 'react'
-
 export default function Widgets({ widgets }:WidgetsProps) {
 	
   return (

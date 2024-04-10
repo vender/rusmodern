@@ -296,6 +296,7 @@ export async function getProducts(parent: number) {
       attributes {
         attribute_group_id
         name
+        status
         attribute {
           attribute_id
           name
@@ -986,6 +987,32 @@ export async function confirmOrder() {
   return data?.confirmOrder
 }
 
+export async function addCoupon(code:string) {
+  const data = await fetchAPI(`
+  mutation {
+    addCoupon(code: "${code}") {
+      weight
+      tax
+      total
+      subtotal
+      coupon_discount
+      coupon_code
+      has_stock
+      has_shipping
+      has_download
+      totals {
+        code
+        title
+        value
+        sort_order
+      }
+    }
+  }
+  `, 'no-store',);
+  
+  return data?.addCoupon
+}
+
 export async function setPaymentMethod(code:string, comment:string = '') {
   const data = await fetchAPI(`
     mutation {
@@ -996,7 +1023,7 @@ export async function setPaymentMethod(code:string, comment:string = '') {
   return data.setPaymentMethod
 }
 
-export async function setShippingMethod(code:string, comment:string = '') {
+export async function setShippingMethod(code:string) {
   const data = await fetchAPI(`
     mutation {
       setShippingMethod(code: "${code}")

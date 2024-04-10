@@ -1,13 +1,15 @@
 import React from "react";
 import parse from "html-react-parser";
+
 interface RadioBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	labelKey: string | React.ReactElement;
 	description : string;
+	wrapperCalssName: string;
 }
 export const RadioBox = React.forwardRef<HTMLInputElement, RadioBoxProps>(
-	({ labelKey, description, ...rest }, ref) => {
+	({ labelKey, description, wrapperCalssName, ...rest }, ref) => {
 		return (
-			<label className="group text-heading text-sm cursor-pointer">
+			<label className={`group text-heading text-sm cursor-pointer ${wrapperCalssName}`}>
 				<input
 					type="radio"
 					className="form-radio w-5 h-5 border border-gray-300 text-heading rounded-full cursor-pointer transition duration-500 ease-in-out focus:ring-offset-0 hover:border-heading focus:outline-none focus:ring-0 focus-visible:outline-none checked:bg-heading"
