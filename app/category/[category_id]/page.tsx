@@ -53,7 +53,7 @@ export default async function Category({ params, searchParams }: any) {
   });
 
   products &&
-    products.map((item: any) => {
+    products?.map((item: any) => {
       item.attributes?.map((i: any) => {
         // console.log();
         if(i.status == 1) {
@@ -66,7 +66,7 @@ export default async function Category({ params, searchParams }: any) {
       });
     });
 
-  products.map((prod: any) => {
+  products?.map((prod: any) => {
     prod.attributes?.map((group: any) => {
       group.attribute.map((attr: any) => {
         if (!removeAttrib.includes(Number(attr.attribute_id))) {

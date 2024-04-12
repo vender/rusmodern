@@ -1,28 +1,28 @@
 import { IoLocationSharp, IoMail, IoCallSharp } from "react-icons/io5";
 import Link from "next/link";
 
-const mapImage = "/assets/images/Map.png";
+const mapImage = "/assets/images/map.png";
 const data = [
 	{
 		id: 1,
-		slug: "https://yandex.ru/maps/-/CDR9YFZO",
+		slug: "https://yandex.ru/maps/-/CDRt56kp",
 		icon: <IoLocationSharp />,
 		name: "Адрес",
-		description: "350001, г. Краснодар, ул. им. Вишняковой 5/2",
+		description: "Краснодарский край, ст.Динская, ул.70 лет Октября 25",
 	},
 	{
 		id: 2,
-		slug: "mailto:info@ilmonte.ru",
+		slug: "mailto:info.rusmodern@mail.ru",
 		icon: <IoMail />,
 		name: "Email",
-		description: "info@ilmonte.ru",
+		description: "info.rusmodern@mail.ru",
 	},
 	{
 		id: 3,
-		slug: "tel:+79184132090",
+		slug: "tel:89183330100",
 		icon: <IoCallSharp />,
 		name: "Телефон",
-		description: "+7(918) 413-20-90",
+		description: "8 (918) 333-01-00 - Николай",
 	},
 ];
 
@@ -49,7 +49,7 @@ export default function ContactInfoBlock() {
 					</div>
 				</div>
 			))}
-			<Link href="https://yandex.ru/maps/-/CDR9YFZO" target="_blank"><img src={mapImage} alt="text-map" className="rounded-md" /></Link>
+			<Link href="https://yandex.ru/maps/-/CDRt56kp" target="_blank"><img src={mapImage} alt="text-map" className="rounded-md" /></Link>
 		</div>
   )
 }

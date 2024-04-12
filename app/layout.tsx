@@ -15,7 +15,7 @@ const inter = Inter({
 export const revalidate = 60;
 
 export const metadata = {
-  title: "ilMonte Shop",
+  title: "Магазин Rusmodern",
 };
 
 async function getCategoryPages(categories:any){
